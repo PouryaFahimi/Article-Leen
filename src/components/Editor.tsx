@@ -1,13 +1,10 @@
 import React from "react";
+import { SimpleEditor } from "./tiptap-templates/simple/simple-editor";
 
 const Editor = () => {
   return (
     <div>
-      <iframe
-        src="https://template.tiptap.dev/preview/templates/simple"
-        width={400}
-        height={600}
-      />
+      <SimpleEditor />
     </div>
   );
 };
