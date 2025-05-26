@@ -5,3 +5,7 @@
   font-family: Forte;
   src: url("./assets/fonts/forte.ttf") format("truetype");
 }
+
+body {
+  overflow: auto;
+}
