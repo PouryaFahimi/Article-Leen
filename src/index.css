@@ -1,3 +1,6 @@
+@import './styles/_variables.scss';
+@import './styles/_keyframe-animations.scss';
+
 @font-face {
   font-family: Forte;
   src: url("./assets/fonts/forte.ttf") format("truetype");
