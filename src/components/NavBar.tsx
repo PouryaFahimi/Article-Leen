@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <header>
+    <header className="tiptap-toolbar">
       <Link to="/">Home</Link>
       <Link to="feed">Feed</Link>
       <Link to="profile">Profile</Link>
