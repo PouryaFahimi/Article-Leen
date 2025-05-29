@@ -4,12 +4,58 @@ import {
   SimpleEditorRef,
 } from "./tiptap-templates/simple/simple-editor";
 
+interface articleSchema {
+  title: string;
+  content: string;
+  username: string;
+}
+
 const EditorPage = () => {
   const [article, setArticle] = useState("");
   const editorRef = useRef<SimpleEditorRef>(null);
 
+  function calculateContentLength(jsonBody: articleSchema) {
+    const stringifiedBody = JSON.stringify(jsonBody);
+    return new TextEncoder().encode(stringifiedBody).length;
+  }
+
   const onCompose = () => {
-    if (editorRef.current?.getHTML()) setArticle(editorRef.current?.getHTML());
+    const content = editorRef.current?.getHTML()
+      ? editorRef.current.getHTML()
+      : "";
+    const contBody = {
+      title: "test for now",
+      content: content,
+      username: "mr test",
+    };
+    const contentLength = calculateContentLength(contBody);
+    console.log(contentLength);
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Length": contentLength.toString(),
+        Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+      },
+      body: JSON.stringify(contBody),
+    };
+
+    fetch("http://localhost:3000/api/articles", requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Response from server:", data);
+      })
+      .catch((error) => {
+        console.error("Request failed:", error);
+      });
+
+    // if (editorRef.current?.getHTML()) setArticle(editorRef.current?.getHTML());
   };
 
   const showArticle = () => {
