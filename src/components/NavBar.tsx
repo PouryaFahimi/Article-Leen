@@ -4,6 +4,7 @@ const NavBar = () => {
   return (
     <header className="tiptap-toolbar">
       <Link to="/">Home</Link>
+      <Link to="login">Login</Link>
       <Link to="feed">Feed</Link>
       <Link to="profile">Profile</Link>
       <Link to="compose">Compose</Link>

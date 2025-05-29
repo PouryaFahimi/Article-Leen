@@ -6,8 +6,6 @@ const Home = () => {
     <div>
       <NavBar />
       <h1>Home</h1>
-      <h1>Here you should see Articles</h1>
-      <h1>Here you can write an Article</h1>
       <Outlet />
     </div>
   );
