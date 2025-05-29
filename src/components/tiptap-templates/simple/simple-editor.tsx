@@ -1,4 +1,10 @@
-import * as React from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import { EditorContent, EditorContext, useEditor } from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
@@ -180,13 +186,17 @@ const MobileToolbarContent = ({
   </>
 );
 
-export function SimpleEditor() {
+export type SimpleEditorRef = {
+  getHTML: () => string;
+};
+
+export const SimpleEditor = forwardRef<SimpleEditorRef>((props, ref) => {
   const isMobile = useMobile();
   const windowSize = useWindowSize();
-  const [mobileView, setMobileView] = React.useState<
-    "main" | "highlighter" | "link"
-  >("main");
-  const toolbarRef = React.useRef<HTMLDivElement>(null);
+  const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(
+    "main"
+  );
+  const toolbarRef = useRef<HTMLDivElement>(null);
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -224,12 +234,20 @@ export function SimpleEditor() {
     content: content,
   });
 
+  useImperativeHandle(
+    ref,
+    () => ({
+      getHTML: () => editor?.getHTML() ?? "",
+    }),
+    [editor]
+  );
+
   const bodyRect = useCursorVisibility({
     editor,
     overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isMobile && mobileView !== "main") {
       setMobileView("main");
     }
@@ -270,4 +288,4 @@ export function SimpleEditor() {
       </div>
     </EditorContext.Provider>
   );
-}
+});

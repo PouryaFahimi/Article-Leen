@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Feed from "./components/Feed";
-import Editor from "./components/Editor";
+import Editor from "./components/EditorPage";
 import LoginPage from "./components/login/LoginPage";
 function App() {
   return (
