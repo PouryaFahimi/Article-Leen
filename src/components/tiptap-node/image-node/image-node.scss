@@ -3,12 +3,13 @@
     max-width: 100%;
     height: auto;
     display: block;
+    border-radius: var(--tt-radius-md);
   }
 
   > img:not([data-type="emoji"] img) {
     margin: 2rem 0;
     outline: 0.125rem solid transparent;
-    border-radius: var(--tt-radius-xl);
+    // border-radius: var(--tt-radius-md);
   }
 
   &.ProseMirror-focused

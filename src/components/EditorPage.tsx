@@ -19,12 +19,17 @@ const EditorPage = () => {
     return new TextEncoder().encode(stringifiedBody).length;
   }
 
+  const getTitle = () => {
+    const temp = document.getElementById("artitle") as HTMLInputElement;
+    return temp.value;
+  };
+
   const onCompose = () => {
     const content = editorRef.current?.getHTML()
       ? editorRef.current.getHTML()
       : "";
     const contBody = {
-      title: "test for now",
+      title: getTitle(),
       content: content,
       username: "mr test",
     };
@@ -70,13 +75,19 @@ const EditorPage = () => {
   };
 
   return (
-    <div>
+    <>
+      <div className="mb-3">
+        <label htmlFor="artitle" className="form-label">
+          Enter the article title:
+        </label>
+        <input id="artitle" type="text" className="form-control" />
+      </div>
       <SimpleEditor ref={editorRef} />
       <button className="btn btn-primary" onClick={onCompose}>
         Compose
       </button>
       {showArticle()}
-    </div>
+    </>
   );
 };
 

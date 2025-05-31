@@ -26,8 +26,9 @@ const Form = ({ children, onSubmit }: Props) => {
         onSubmit(data);
         reset();
       })}
+      className="flex-rowed"
     >
-      <div className="mb-3">
+      <div>
         <label htmlFor="username" className="form-label">
           Name
         </label>
@@ -47,7 +48,7 @@ const Form = ({ children, onSubmit }: Props) => {
           </p>
         )}
       </div>
-      <div className="mb-3">
+      <div>
         <label htmlFor="password" className="form-label">
           Password
         </label>
@@ -67,7 +68,7 @@ const Form = ({ children, onSubmit }: Props) => {
           </p>
         )}
       </div>
-      <button className="btn btn-primary mt-3" type="submit">
+      <button className="btn btn-primary" type="submit">
         {children}
       </button>
     </form>

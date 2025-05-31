@@ -64,11 +64,11 @@ body {
 }
 
 .simple-editor-content .tiptap.ProseMirror {
-  padding: 3rem 3rem;
+  padding: 1rem 2rem;
 }
 
 @media screen and (max-width: 480px) {
   .simple-editor-content .tiptap.ProseMirror {
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 0.5rem;
   }
 }

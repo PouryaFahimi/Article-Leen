@@ -5,8 +5,9 @@ const Home = () => {
   return (
     <div>
       <NavBar />
-      <h1>Home</h1>
-      <Outlet />
+      <div className="outlet flex-rowed">
+        <Outlet />
+      </div>
     </div>
   );
 };

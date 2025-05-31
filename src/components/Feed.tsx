@@ -37,12 +37,16 @@ const Feed = () => {
   if (loading) return <p>Loading feed...</p>;
 
   return (
-    <div>
-      <h1>Feed</h1>
+    <div className="simple-editor-content feed-list">
       {articles.map((article: articleSchema) => (
-        <div key={article._id}>
-          <h2>{article.title}</h2>
-          <p>{article.content}</p>
+        <div className="tiptap ProseMirror">
+          <div key={article._id} className="article-card">
+            <h2 className="article-title">{article.title}</h2>
+            <div
+              className="article-content"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          </div>
         </div>
       ))}
     </div>

@@ -1,0 +1,25 @@
+.article-card {
+    border-radius: var(--tt-radius-md);
+    border: var(--tt-radius-xxs) solid gray;
+    overflow: hidden;
+}
+
+.article-title {
+    border-bottom: var(--tt-radius-xxs) solid gray;
+    padding: var(--tt-radius-md);
+    background-color: aliceblue;
+}
+
+.article-content {
+    padding: var(--tt-radius-md);
+}
+
+.backColor {
+    // background-color: gray;
+}
+
+.feed-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--tt-radius-md);
+}
