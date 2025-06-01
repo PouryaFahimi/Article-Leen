@@ -190,102 +190,108 @@ export type SimpleEditorRef = {
   getHTML: () => string;
 };
 
-export const SimpleEditor = forwardRef<SimpleEditorRef>((props, ref) => {
-  const isMobile = useMobile();
-  const windowSize = useWindowSize();
-  const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(
-    "main"
-  );
-  const toolbarRef = useRef<HTMLDivElement>(null);
+interface Props {
+  inContent?: string;
+}
 
-  const editor = useEditor({
-    immediatelyRender: false,
-    editorProps: {
-      attributes: {
-        autocomplete: "off",
-        autocorrect: "off",
-        autocapitalize: "off",
-        "aria-label": "Main content area, start typing to enter text.",
+export const SimpleEditor = forwardRef<SimpleEditorRef, Props>(
+  ({ inContent = content }, ref) => {
+    const isMobile = useMobile();
+    const windowSize = useWindowSize();
+    const [mobileView, setMobileView] = useState<
+      "main" | "highlighter" | "link"
+    >("main");
+    const toolbarRef = useRef<HTMLDivElement>(null);
+
+    const editor = useEditor({
+      immediatelyRender: false,
+      editorProps: {
+        attributes: {
+          autocomplete: "off",
+          autocorrect: "off",
+          autocapitalize: "off",
+          "aria-label": "Main content area, start typing to enter text.",
+        },
       },
-    },
-    extensions: [
-      StarterKit,
-      TextAlign.configure({ types: ["heading", "paragraph"] }),
-      Underline,
-      TaskList,
-      TaskItem.configure({ nested: true }),
-      Highlight.configure({ multicolor: true }),
-      Image,
-      Typography,
-      Superscript,
-      Subscript,
+      extensions: [
+        StarterKit,
+        TextAlign.configure({ types: ["heading", "paragraph"] }),
+        Underline,
+        TaskList,
+        TaskItem.configure({ nested: true }),
+        Highlight.configure({ multicolor: true }),
+        Image,
+        Typography,
+        Superscript,
+        Subscript,
 
-      Selection,
-      ImageUploadNode.configure({
-        accept: "image/*",
-        maxSize: MAX_FILE_SIZE,
-        limit: 3,
-        upload: handleImageUpload,
-        onError: (error) => console.error("Upload failed:", error),
+        Selection,
+        ImageUploadNode.configure({
+          accept: "image/*",
+          maxSize: MAX_FILE_SIZE,
+          limit: 3,
+          upload: handleImageUpload,
+          onError: (error) => console.error("Upload failed:", error),
+        }),
+        TrailingNode,
+        Link.configure({ openOnClick: false }),
+      ],
+      content: inContent,
+    });
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        getHTML: () => editor?.getHTML() ?? "",
       }),
-      TrailingNode,
-      Link.configure({ openOnClick: false }),
-    ],
-    content: content,
-  });
+      [editor]
+    );
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      getHTML: () => editor?.getHTML() ?? "",
-    }),
-    [editor]
-  );
+    const bodyRect = useCursorVisibility({
+      editor,
+      overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
+    });
 
-  const bodyRect = useCursorVisibility({
-    editor,
-    overlayHeight: toolbarRef.current?.getBoundingClientRect().height ?? 0,
-  });
+    useEffect(() => {
+      if (!isMobile && mobileView !== "main") {
+        setMobileView("main");
+      }
+    }, [isMobile, mobileView]);
 
-  useEffect(() => {
-    if (!isMobile && mobileView !== "main") {
-      setMobileView("main");
-    }
-  }, [isMobile, mobileView]);
+    return (
+      <EditorContext.Provider value={{ editor }}>
+        <Toolbar
+          ref={toolbarRef}
+          style={
+            isMobile
+              ? {
+                  bottom: `calc(100% - ${windowSize.height - bodyRect.y}px)`,
+                }
+              : {}
+          }
+        >
+          {mobileView === "main" ? (
+            <MainToolbarContent
+              onHighlighterClick={() => setMobileView("highlighter")}
+              onLinkClick={() => setMobileView("link")}
+              isMobile={isMobile}
+            />
+          ) : (
+            <MobileToolbarContent
+              type={mobileView === "highlighter" ? "highlighter" : "link"}
+              onBack={() => setMobileView("main")}
+            />
+          )}
+        </Toolbar>
 
-  return (
-    <EditorContext.Provider value={{ editor }}>
-      <Toolbar
-        ref={toolbarRef}
-        style={
-          isMobile
-            ? {
-                bottom: `calc(100% - ${windowSize.height - bodyRect.y}px)`,
-              }
-            : {}
-        }
-      >
-        {mobileView === "main" ? (
-          <MainToolbarContent
-            onHighlighterClick={() => setMobileView("highlighter")}
-            onLinkClick={() => setMobileView("link")}
-            isMobile={isMobile}
+        <div className="content-wrapper">
+          <EditorContent
+            editor={editor}
+            role="presentation"
+            className="simple-editor-content"
           />
-        ) : (
-          <MobileToolbarContent
-            type={mobileView === "highlighter" ? "highlighter" : "link"}
-            onBack={() => setMobileView("main")}
-          />
-        )}
-      </Toolbar>
-
-      <div className="content-wrapper">
-        <EditorContent
-          editor={editor}
-          role="presentation"
-          className="simple-editor-content"
-        />
-      </div>
-    </EditorContext.Provider>
-  );
-});
+        </div>
+      </EditorContext.Provider>
+    );
+  }
+);

@@ -42,7 +42,7 @@
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    scrollbar-width: thin;
     -ms-overflow-style: none;
 
     &::-webkit-scrollbar {

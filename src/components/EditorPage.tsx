@@ -7,12 +7,20 @@ import {
 interface articleSchema {
   title: string;
   content: string;
-  username: string;
 }
 
-const EditorPage = () => {
+interface Props {
+  title?: string;
+  content?: string;
+  updater?: boolean;
+  articleId?: string;
+}
+
+const EditorPage = ({ title, content, updater, articleId }: Props) => {
   const [article, setArticle] = useState("");
   const editorRef = useRef<SimpleEditorRef>(null);
+  const titleLabel = updater ? "Edit the title:" : "Enter the article title:";
+  const buttonText = updater ? "Update" : "Compose";
 
   function calculateContentLength(jsonBody: articleSchema) {
     const stringifiedBody = JSON.stringify(jsonBody);
@@ -31,13 +39,12 @@ const EditorPage = () => {
     const contBody = {
       title: getTitle(),
       content: content,
-      username: "mr test",
     };
     const contentLength = calculateContentLength(contBody);
     console.log(contentLength);
 
     const requestOptions = {
-      method: "POST",
+      method: updater ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
         "Content-Length": contentLength.toString(),
@@ -46,7 +53,7 @@ const EditorPage = () => {
       body: JSON.stringify(contBody),
     };
 
-    fetch("http://localhost:3000/api/articles", requestOptions)
+    fetch(`http://localhost:3000/api/articles/${articleId}`, requestOptions)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -78,13 +85,18 @@ const EditorPage = () => {
     <>
       <div className="mb-3">
         <label htmlFor="artitle" className="form-label">
-          Enter the article title:
+          {titleLabel}
         </label>
-        <input id="artitle" type="text" className="form-control" />
+        <input
+          id="artitle"
+          type="text"
+          className="form-control"
+          value={title}
+        />
       </div>
-      <SimpleEditor ref={editorRef} />
+      <SimpleEditor ref={editorRef} inContent={content} />
       <button className="btn btn-primary" onClick={onCompose}>
-        Compose
+        {buttonText}
       </button>
       {showArticle()}
     </>
