@@ -13,9 +13,10 @@ interface articleSchema {
 
 interface Props {
   username?: string;
+  counter?: (count: number) => void;
 }
 
-const Feed = ({ username }: Props) => {
+const Feed = ({ username, counter }: Props) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
@@ -32,6 +33,7 @@ const Feed = ({ username }: Props) => {
         );
         const data = await res.json();
         setArticles(data);
+        if (counter) counter(data.length);
       } catch (err) {
         console.error("Failed to fetch feed:", err);
       } finally {

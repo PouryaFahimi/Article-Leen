@@ -46,6 +46,12 @@ body {
   width: 100%;
 }
 
+.flex-line {
+  display: flex;
+  justify-content: center;
+  column-gap: var(--tt-radius-md);
+}
+
 .prof {
   display: flex;
   justify-content: center;

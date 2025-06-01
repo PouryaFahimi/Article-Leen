@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Feed from "../Feed";
 import { jwtDecode } from "jwt-decode";
 
@@ -10,6 +10,7 @@ interface tokenPlayLoad {
 }
 
 const Profile = () => {
+  const [articleNum, setArticleNum] = useState(0);
   const token = localStorage.getItem("article-leen-token");
   let username;
   if (token) {
@@ -34,15 +35,22 @@ const Profile = () => {
             Log out
           </button>
         </div>
-
+        <button
+          className="btn btn-primary"
+          onClick={() =>
+            (window.location.href = "http://localhost:5173/compose")
+          }
+        >
+          Compose a new Article
+        </button>
         <div>
           <h2>Your Articles:</h2>
-          <Feed username={username} />
+          <Feed username={username} counter={setArticleNum} />
         </div>
       </div>
       <div className="prof-box prof-stats">
         <h3>Your status:</h3>
-        <p>total articles:</p>
+        <p>total articles: {articleNum}</p>
         <p>stars achieved: 0</p>
       </div>
     </div>

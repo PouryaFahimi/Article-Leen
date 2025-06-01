@@ -1,5 +1,7 @@
 import React from "react";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
+import { FaRegHeart } from "react-icons/fa";
+import { MdMoreVert } from "react-icons/md";
 
 interface articleSchema {
   _id: string;
@@ -21,9 +23,22 @@ const Article = ({ article }: Props) => {
   return (
     <div className="tiptap ProseMirror">
       <div key={article._id} className="article-card">
-        <h2 className="article-title">{article.title}</h2>
         <div className="article-title">
-          <h4>{article.username}</h4>
+          <h2>{article.title}</h2>
+          <div className="flex-line">
+            <button>
+              <FaRegHeart size={20} />
+            </button>
+            <button>
+              <MdMoreVert size={20} />
+            </button>
+          </div>
+        </div>
+
+        <div className="article-title">
+          <button>
+            <h4>{article.username}</h4>
+          </button>
           <p>{relativeDate}</p>
         </div>
 
