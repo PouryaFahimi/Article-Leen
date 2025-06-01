@@ -1,25 +1,26 @@
 .article-card {
-    border-radius: var(--tt-radius-md);
-    border: var(--tt-radius-xxs) solid gray;
-    overflow: hidden;
+  border-radius: var(--tt-radius-md);
+  border: var(--tt-radius-xxs) solid gray;
+  overflow: hidden;
 }
 
 .article-title {
-    border-bottom: var(--tt-radius-xxs) solid gray;
-    padding: var(--tt-radius-md);
-    background-color: aliceblue;
+  border-bottom: var(--tt-radius-xxs) solid gray;
+  padding: var(--tt-radius-md);
+  background-color: aliceblue;
+  margin: 0;
 }
 
 .article-content {
-    padding: var(--tt-radius-md);
+  padding: var(--tt-radius-md);
 }
 
 .backColor {
-    // background-color: gray;
+  // background-color: gray;
 }
 
 .feed-list {
-    display: flex;
-    flex-direction: column;
-    row-gap: var(--tt-radius-md);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--tt-radius-md);
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Article from "./Article";
 
 interface articleSchema {
   _id: string;
@@ -39,15 +40,7 @@ const Feed = () => {
   return (
     <div className="simple-editor-content feed-list">
       {articles.map((article: articleSchema) => (
-        <div className="tiptap ProseMirror">
-          <div key={article._id} className="article-card">
-            <h2 className="article-title">{article.title}</h2>
-            <div
-              className="article-content"
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />
-          </div>
-        </div>
+        <Article article={article} />
       ))}
     </div>
   );
