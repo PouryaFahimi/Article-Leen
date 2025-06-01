@@ -70,12 +70,13 @@ body {
 }
 
 .prof-stats {
-  height: fit-content;
+  min-width: fit-content;
 }
 
 @media screen and (max-width: 480px) {
   .navbar {
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .search-field {
@@ -84,5 +85,13 @@ body {
 
   .outlet {
     padding: var(--tt-radius-sm);
+  }
+
+  .prof {
+    flex-direction: column;
+  }
+
+  .prof-stats {
+    margin-top: var(--tt-radius-xl);
   }
 }

@@ -26,34 +26,36 @@ const Profile = () => {
   };
 
   return (
-    <div className="prof">
-      <div className="flex-rowed">
-        <div className="prof-box prof-title">
-          <h1>{username}</h1>
-          <h4>joined at: xxx</h4>
-          <button className="btn btn-secondary" onClick={onLogout}>
-            Log out
+    <>
+      <div className="prof">
+        <div className="flex-rowed">
+          <div className="prof-box prof-title">
+            <h1>{username}</h1>
+            <h4>joined at: xxx</h4>
+            <button className="btn btn-secondary" onClick={onLogout}>
+              Log out
+            </button>
+          </div>
+          <button
+            className="btn btn-primary"
+            onClick={() =>
+              (window.location.href = "http://localhost:5173/compose")
+            }
+          >
+            Compose a new Article
           </button>
         </div>
-        <button
-          className="btn btn-primary"
-          onClick={() =>
-            (window.location.href = "http://localhost:5173/compose")
-          }
-        >
-          Compose a new Article
-        </button>
-        <div>
-          <h2>Your Articles:</h2>
-          <Feed username={username} counter={setArticleNum} />
+        <div className="prof-box prof-stats">
+          <h3>Your status:</h3>
+          <p>total articles: {articleNum}</p>
+          <p>stars achieved: 0</p>
         </div>
       </div>
-      <div className="prof-box prof-stats">
-        <h3>Your status:</h3>
-        <p>total articles: {articleNum}</p>
-        <p>stars achieved: 0</p>
+      <div className="flex-rowed">
+        <h2>Your Articles:</h2>
+        <Feed username={username} counter={setArticleNum} />
       </div>
-    </div>
+    </>
   );
 };
 

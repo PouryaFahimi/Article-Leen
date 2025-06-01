@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import {
   SimpleEditor,
   SimpleEditorRef,
@@ -17,7 +17,6 @@ interface Props {
 }
 
 const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
-  const [article, setArticle] = useState("");
   const editorRef = useRef<SimpleEditorRef>(null);
   const titleLabel = updater ? "Edit the title:" : "Enter the article title:";
   const buttonText = updater ? "Update" : "Compose";
@@ -62,23 +61,11 @@ const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
       })
       .then((data) => {
         console.log("Response from server:", data);
+        window.location.href = "http://localhost:5173/feed";
       })
       .catch((error) => {
         console.error("Request failed:", error);
       });
-
-    // if (editorRef.current?.getHTML()) setArticle(editorRef.current?.getHTML());
-  };
-
-  const showArticle = () => {
-    return (
-      <div className="simple-editor-content">
-        <div
-          className="tiptap ProseMirror"
-          dangerouslySetInnerHTML={{ __html: article }}
-        />
-      </div>
-    );
   };
 
   return (
@@ -98,7 +85,6 @@ const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
       <button className="btn btn-primary" onClick={onCompose}>
         {buttonText}
       </button>
-      {showArticle()}
     </>
   );
 };
