@@ -24,6 +24,8 @@
     "@tiptap/react": "^2.12.0",
     "@tiptap/starter-kit": "^2.12.0",
     "bootstrap": "^5.2.3",
+    "dayjs": "^1.11.13",
+    "jwt-decode": "^4.0.0",
     "node-domexception": "^2.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

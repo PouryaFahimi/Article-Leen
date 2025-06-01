@@ -16,7 +16,7 @@ interface Props {
   articleId?: string;
 }
 
-const EditorPage = ({ title, content, updater, articleId }: Props) => {
+const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
   const [article, setArticle] = useState("");
   const editorRef = useRef<SimpleEditorRef>(null);
   const titleLabel = updater ? "Edit the title:" : "Enter the article title:";
