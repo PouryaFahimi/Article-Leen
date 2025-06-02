@@ -36,7 +36,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex-rowed">
+    <div className="flex-rowed login-form">
       <Form
         onSubmit={(data) => {
           if (submitMode) onRegister(data);

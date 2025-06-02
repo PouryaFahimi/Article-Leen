@@ -1,4 +1,18 @@
+@import "./styles/_variables.scss";
+@import "./styles/_keyframe-animations.scss";
+
+@font-face {
+  font-family: Forte;
+  src: url("./assets/fonts/forte.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Black Freeday";
+  src: url("./assets/fonts/BlackFreeday.ttf") format("truetype");
+}
+
 body {
+  overflow: auto;
   font-family: "DM Sans", sans-serif;
 }
 
@@ -14,7 +28,8 @@ body {
   border-radius: var(--tt-radius-md);
   background: none;
   padding: 0 var(--tt-radius-md);
-  height: 2rem;
+  height: 2.5rem;
+  width: 25vw;
   background-color: aliceblue;
 }
 
@@ -36,12 +51,14 @@ body {
 
 .outlet {
   padding: var(--tt-radius-xl);
+  min-height: 100vh;
 }
 
 .flex-rowed {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
+  // align-items: center;
   row-gap: var(--tt-radius-xl);
   width: 100%;
 }
@@ -52,10 +69,28 @@ body {
   column-gap: var(--tt-radius-md);
 }
 
+.login-form {
+  width: 60vw;
+  padding: var(--tt-radius-md);
+  margin: 10vh 20vw;
+  background-color: aliceblue;
+  border-radius: var(--tt-radius-md);
+  overflow: hidden;
+
+  * {
+    width: 100%;
+  }
+}
+
 .prof {
   display: flex;
   justify-content: center;
   column-gap: var(--tt-radius-xl);
+  width: 100%;
+
+  .flex-rowed {
+    align-items: normal;
+  }
 }
 
 .prof-box {
@@ -63,6 +98,11 @@ body {
   background-color: lightblue;
   overflow: hidden;
   padding: var(--tt-radius-md);
+
+  h1 {
+    font-family: "Black Freeday", sans-serif;
+    font-size: 3rem;
+  }
 }
 
 .prof-title {
@@ -77,6 +117,11 @@ body {
   .navbar {
     flex-wrap: wrap;
     justify-content: center;
+
+    .flex-line {
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 
   .search-field {
@@ -85,6 +130,11 @@ body {
 
   .outlet {
     padding: var(--tt-radius-sm);
+  }
+
+  .login-form {
+    width: 100%;
+    margin: 10vh 0;
   }
 
   .prof {
