@@ -8,7 +8,6 @@ interface articleSchema {
   username: string;
   createdAt: string;
   updatedAt: string;
-  __v: number;
 }
 
 interface Props {
@@ -48,9 +47,14 @@ const Feed = ({ username, counter }: Props) => {
 
   return (
     <div className="simple-editor-content feed-list">
-      {articles.map((article: articleSchema) => (
-        <Article article={article} />
-      ))}
+      {articles.length === 0 ? (
+        <div>
+          <h3 className="flex-line">There is no Articles yet.</h3>
+          <h3 className="flex-line">Publish some!</h3>
+        </div>
+      ) : (
+        articles.map((article: articleSchema) => <Article article={article} />)
+      )}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { FaRegHeart } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
@@ -10,7 +9,6 @@ interface articleSchema {
   username: string;
   createdAt: string;
   updatedAt: string;
-  __v: number;
 }
 
 interface Props {
@@ -19,6 +17,7 @@ interface Props {
 
 const Article = ({ article }: Props) => {
   const relativeDate = useFormattedDate(article.updatedAt);
+  const absoluteDate = useFormattedDate(article.updatedAt, "absolute");
 
   return (
     <div className="tiptap ProseMirror">
@@ -39,7 +38,7 @@ const Article = ({ article }: Props) => {
           <button>
             <h4>{article.username}</h4>
           </button>
-          <p>{relativeDate}</p>
+          <p title={absoluteDate}>{relativeDate}</p>
         </div>
 
         <div
