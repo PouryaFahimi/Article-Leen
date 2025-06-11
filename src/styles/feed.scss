@@ -27,14 +27,18 @@
     color: gray;
   }
 
-  button {
+  button,
+  a {
     border: none;
     background: none;
     border-radius: var(--tt-radius-md);
     padding: var(--tt-radius-md);
+    color: inherit !important;
+    text-decoration: none !important;
   }
 
-  button:hover {
+  button:hover,
+  a:hover {
     background-color: lightblue;
   }
 }

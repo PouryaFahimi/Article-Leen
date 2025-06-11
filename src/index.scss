@@ -7,8 +7,8 @@
 }
 
 @font-face {
-  font-family: "Black Freeday";
-  src: url("./assets/fonts/BlackFreeday.ttf") format("truetype");
+  font-family: "Balencia Lattive";
+  src: url("./assets/fonts/BalenciaLattive.otf") format("opentype");
 }
 
 body {
@@ -21,6 +21,15 @@ body {
   overflow: auto;
   flex-wrap: nowrap;
   background-color: lightblue;
+
+  a {
+    border-radius: var(--tt-radius-md);
+    padding: var(--tt-radius-md);
+  }
+
+  a:hover {
+    background-color: aliceblue;
+  }
 }
 
 .search-field {
@@ -33,20 +42,14 @@ body {
   background-color: aliceblue;
 }
 
-.nav-link,
-.nav-link:hover,
-.nav-link:focus,
-.nav-link:active {
+a,
+a:hover,
+a:focus,
+a:active {
   text-decoration: none;
   color: inherit;
   border: none;
-  border-radius: var(--tt-radius-md);
   background: none;
-  padding: var(--tt-radius-md);
-}
-
-.nav-link:hover {
-  background-color: aliceblue;
 }
 
 .outlet {
@@ -100,7 +103,7 @@ body {
   padding: var(--tt-radius-md);
 
   h1 {
-    font-family: "Black Freeday", sans-serif;
+    font-family: "Balencia Lattive", sans-serif;
     font-size: 3rem;
   }
 }
@@ -110,7 +113,7 @@ body {
 }
 
 .prof-stats {
-  min-width: fit-content;
+  min-width: 25vw;
 }
 
 @media screen and (max-width: 480px) {

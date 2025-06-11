@@ -1,20 +1,24 @@
 import { useState } from "react";
 import Form, { LoginData } from "./Form";
+import { useUser } from "../UserContext";
+import { useNavigate } from "react-router";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const [submitMode, setSubmitMode] = useState(true);
   const [message, setMessage] = useState();
+  const { setUser } = useUser();
 
   const guidance = submitMode ? "already have an account ?" : "back to submit";
   const button_text = submitMode ? "Submit" : "Login";
 
-  const onRegister = (data: LoginData, endpoint = "register") => {
-    console.log("should register", data);
+  const onRegister = (inData: LoginData, endpoint = "register") => {
+    console.log("should register", inData);
 
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify(inData),
     };
 
     fetch(`http://localhost:3000/api/auth/${endpoint}`, requestOptions)
@@ -29,6 +33,8 @@ function LoginPage() {
         if (endpoint === "login")
           localStorage.setItem("article-leen-token", data.token);
         else setMessage(data.message);
+        setUser({ username: inData.username });
+        navigate("/" + inData.username);
       })
       .catch((error) => {
         console.error("Request failed:", error);

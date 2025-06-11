@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import Feed from "../Feed";
-import { jwtDecode } from "jwt-decode";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
+import { useNavigate, useParams } from "react-router";
+import { useUser } from "../UserContext";
 
-interface tokenPlayLoad {
+export interface tokenPlayLoad {
   username: string;
   password: string;
   exp: number;
@@ -17,28 +18,26 @@ interface userSchema {
   updatedAt: string;
 }
 
-interface Props {
-  who?: string;
-  self?: boolean;
-}
-
-const Profile = ({ who = "" }: Props) => {
+const Profile = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useUser();
   const [articleNum, setArticleNum] = useState(0);
-  const [user, setUser] = useState<userSchema>();
+  const [profileUser, setProfileUser] = useState<userSchema>();
   const hasFetched = useRef(false);
-  const token = localStorage.getItem("article-leen-token");
 
-  const decodedUsername = token ? jwtDecode<tokenPlayLoad>(token).username : "";
-  const username = who && decodedUsername !== who ? who : decodedUsername;
+  const { username } = useParams();
 
-  const absoluteDate = useFormattedDate(user?.createdAt || "", "absolute");
+  const absoluteDate = useFormattedDate(
+    profileUser?.createdAt || "",
+    "absolute"
+  );
 
   useEffect(() => {
     // redirect inside of useEffect won't interrupt the render phase
-    if (!token) {
-      window.location.href = "http://localhost:5173/login";
-      return;
-    }
+    // if (!user) {
+    //   navigate("/login");
+    //   return;
+    // }
 
     if (hasFetched.current) return;
     hasFetched.current = true;
@@ -47,19 +46,22 @@ const Profile = ({ who = "" }: Props) => {
       try {
         const res = await fetch(`http://localhost:3000/api/user/${username}`);
         const data = await res.json();
-        setUser(data);
+        setProfileUser(data);
       } catch (err) {
         console.error("Failed to fetch user:", err);
       }
     };
 
     fetchData();
-  }, [token, username]);
+  }, [user, username]);
 
   const onLogout = () => {
     localStorage.setItem("article-leen-token", "");
-    window.location.href = "http://localhost:5173/";
+    setUser(null);
+    navigate("/");
   };
+
+  console.log(username);
 
   return (
     <>
@@ -74,12 +76,11 @@ const Profile = ({ who = "" }: Props) => {
           </div>
           <button
             className="btn btn-primary"
-            onClick={() =>
-              (window.location.href = "http://localhost:5173/compose")
-            }
+            onClick={() => navigate("/compose")}
           >
             Compose a new Article
           </button>
+          <button className="btn btn-secondary">Your Likes</button>
         </div>
         <div className="prof-box prof-stats">
           <h3>Status:</h3>

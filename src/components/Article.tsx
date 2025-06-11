@@ -1,6 +1,8 @@
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { FaRegHeart } from "react-icons/fa";
-import { MdMoreVert } from "react-icons/md";
+import { MdMoreVert, MdModeEdit } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "./UserContext";
 
 interface articleSchema {
   _id: string;
@@ -16,8 +18,11 @@ interface Props {
 }
 
 const Article = ({ article }: Props) => {
+  const navigate = useNavigate();
   const relativeDate = useFormattedDate(article.updatedAt);
   const absoluteDate = useFormattedDate(article.updatedAt, "absolute");
+  const { user } = useUser();
+  const editable = user?.username === article.username ? true : false;
 
   return (
     <div className="tiptap ProseMirror">
@@ -25,6 +30,11 @@ const Article = ({ article }: Props) => {
         <div className="article-title">
           <h2>{article.title}</h2>
           <div className="flex-line">
+            {editable && (
+              <button>
+                <MdModeEdit size={20} />
+              </button>
+            )}
             <button>
               <FaRegHeart size={20} />
             </button>
@@ -33,14 +43,12 @@ const Article = ({ article }: Props) => {
             </button>
           </div>
         </div>
-
         <div className="article-title">
-          <button>
+          <button onClick={() => navigate(`/${article.username}`)}>
             <h4>{article.username}</h4>
           </button>
           <p title={absoluteDate}>{relativeDate}</p>
         </div>
-
         <div
           className="article-content"
           dangerouslySetInnerHTML={{ __html: article.content }}

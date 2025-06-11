@@ -14,7 +14,7 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="feed" element={<Feed />} />
             <Route path="compose" element={<EditorPage />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path=":username" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
