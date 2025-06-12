@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import Feed from "../Feed";
+import Feed from "../feed/Feed";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { useNavigate, useParams } from "react-router";
 import { useUser } from "../UserContext";
@@ -26,6 +26,7 @@ const Profile = () => {
   const hasFetched = useRef(false);
 
   const { username } = useParams();
+  const isSelf = username === user?.username ? true : false;
 
   const absoluteDate = useFormattedDate(
     profileUser?.createdAt || "",
@@ -61,8 +62,6 @@ const Profile = () => {
     navigate("/");
   };
 
-  console.log(username);
-
   return (
     <>
       <div className="prof">
@@ -70,17 +69,24 @@ const Profile = () => {
           <div className="prof-box prof-title">
             <h1>{username}</h1>
             <h5>Joined at: {absoluteDate}</h5>
-            <button className="btn btn-secondary" onClick={onLogout}>
-              Log out
-            </button>
+            {isSelf && (
+              <button className="btn btn-secondary" onClick={onLogout}>
+                Log out
+              </button>
+            )}
           </div>
-          <button
-            className="btn btn-primary"
-            onClick={() => navigate("/compose")}
-          >
-            Compose a new Article
-          </button>
-          <button className="btn btn-secondary">Your Likes</button>
+          {isSelf && (
+            <button
+              className="btn btn-primary"
+              onClick={() => navigate("/compose")}
+            >
+              Compose a new Article
+            </button>
+          )}
+          <button className="btn btn-secondary">Likes</button>
+          {isSelf && (
+            <button className="btn btn-secondary">Bookmarked Articles</button>
+          )}
         </div>
         <div className="prof-box prof-stats">
           <h3>Status:</h3>

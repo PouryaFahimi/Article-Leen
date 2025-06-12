@@ -1,8 +1,9 @@
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { FaRegHeart } from "react-icons/fa";
-import { MdMoreVert, MdModeEdit } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "./UserContext";
+import { useUser } from "../UserContext";
+import { Dropdown } from "./Dropdown";
 
 interface articleSchema {
   _id: string;
@@ -24,6 +25,10 @@ const Article = ({ article }: Props) => {
   const { user } = useUser();
   const editable = user?.username === article.username ? true : false;
 
+  const handleSelect = (item: { label: string; value: string }) => {
+    console.log("Selected:", item);
+  };
+
   return (
     <div className="tiptap ProseMirror">
       <div key={article._id} className="article-card">
@@ -38,9 +43,15 @@ const Article = ({ article }: Props) => {
             <button>
               <FaRegHeart size={20} />
             </button>
-            <button>
-              <MdMoreVert size={20} />
-            </button>
+            <Dropdown
+              label=""
+              items={[
+                { label: "Share", value: "share" },
+                { label: "Bookmark", value: "bookmark" },
+                { label: "Full view", value: "view" },
+              ]}
+              onSelect={handleSelect}
+            />
           </div>
         </div>
         <div className="article-title">

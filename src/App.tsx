@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import Feed from "./components/Feed";
+import Feed from "./components/feed/Feed";
 import LoginPage from "./components/login/LoginPage";
 import EditorPage from "./components/EditorPage";
 import Profile from "./components/profile/Profile";
