@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Form, { LoginData } from "./Form";
-import { useUser } from "../UserContext";
+import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router";
 
 function LoginPage() {

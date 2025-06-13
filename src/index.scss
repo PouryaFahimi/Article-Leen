@@ -116,6 +116,15 @@ a:active {
   min-width: 25vw;
 }
 
+.alert-container {
+  position: fixed;
+  top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+}
+
 @media screen and (max-width: 480px) {
   .navbar {
     flex-wrap: wrap;

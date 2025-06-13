@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import Feed from "../feed/Feed";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { useNavigate, useParams } from "react-router";
-import { useUser } from "../UserContext";
+import { useUser } from "../../context/UserContext";
 
 export interface tokenPlayLoad {
   username: string;

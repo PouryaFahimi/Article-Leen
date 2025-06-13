@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 import { tokenPlayLoad } from "./profile/Profile";
-import { useUser } from "./UserContext";
+import { useUser } from "../context/UserContext";
 import { useEffect } from "react";
 
 const NavBar = () => {

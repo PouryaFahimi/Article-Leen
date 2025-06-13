@@ -3,9 +3,10 @@ import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { FaRegHeart } from "react-icons/fa";
 import { MdModeEdit, MdContentCopy } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../UserContext";
+import { useUser } from "../../context/UserContext";
 import { Dropdown } from "./Dropdown";
 import { Dialog } from "./Dialog";
+import { useAlert } from "../../context/AlertContext";
 
 interface articleSchema {
   _id: string;
@@ -26,7 +27,18 @@ const Article = ({ article }: Props) => {
   const relativeDate = useFormattedDate(article.updatedAt);
   const absoluteDate = useFormattedDate(article.updatedAt, "absolute");
   const { user } = useUser();
+  const { showAlert } = useAlert();
   const editable = user?.username === article.username ? true : false;
+
+  async function copyToClipboard(i: number) {
+    const el = document.getElementsByClassName("share-link")[i] as HTMLElement;
+    try {
+      await navigator.clipboard.writeText(el.innerText);
+      showAlert("Copied to Clipboard!", "success");
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  }
 
   const shareOptions = () => {
     return (
@@ -37,7 +49,7 @@ const Article = ({ article }: Props) => {
             <span className="share-link">
               https://article-leen.com/articles/{article._id}
             </span>
-            <button>
+            <button onClick={() => copyToClipboard(0)}>
               <MdContentCopy size={20} />
             </button>
           </div>
@@ -48,7 +60,7 @@ const Article = ({ article }: Props) => {
             <span className="share-link">
               http://localhost:5173/articles/{article._id}
             </span>
-            <button>
+            <button onClick={() => copyToClipboard(1)}>
               <MdContentCopy size={20} />
             </button>
           </div>
