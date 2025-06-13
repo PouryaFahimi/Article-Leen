@@ -2,15 +2,21 @@ import { useState } from "react";
 import Form, { LoginData } from "./Form";
 import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router";
+import { useAlert } from "../../context/AlertContext";
 
 function LoginPage() {
   const navigate = useNavigate();
   const [submitMode, setSubmitMode] = useState(true);
-  const [message, setMessage] = useState();
   const { setUser } = useUser();
+  const { showAlert } = useAlert();
 
   const guidance = submitMode ? "already have an account ?" : "back to submit";
   const button_text = submitMode ? "Submit" : "Login";
+
+  const showErrorAlert = (data: any) => {
+    console.log(data);
+    showAlert(data.error, "error");
+  };
 
   const onRegister = (inData: LoginData, endpoint = "register") => {
     console.log("should register", inData);
@@ -22,8 +28,9 @@ function LoginPage() {
     };
 
     fetch(`http://localhost:3000/api/auth/${endpoint}`, requestOptions)
-      .then((response) => {
+      .then(async (response) => {
         if (!response.ok) {
+          showErrorAlert(await response.json());
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
@@ -32,7 +39,7 @@ function LoginPage() {
         console.log("Response from server:", data);
         if (endpoint === "login")
           localStorage.setItem("article-leen-token", data.token);
-        else setMessage(data.message);
+        showAlert("Successful Login!", "success");
         setUser({ username: inData.username });
         navigate("/" + inData.username);
       })
@@ -57,7 +64,6 @@ function LoginPage() {
       >
         {guidance}
       </button>
-      {message ? <p>{message}</p> : null}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Feed from "../feed/Feed";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { useNavigate, useParams } from "react-router";
 import { useUser } from "../../context/UserContext";
+import { useAlert } from "../../context/AlertContext";
 
 export interface tokenPlayLoad {
   username: string;
@@ -24,6 +25,7 @@ const Profile = () => {
   const [articleNum, setArticleNum] = useState(0);
   const [profileUser, setProfileUser] = useState<userSchema>();
   const hasFetched = useRef(false);
+  const { showAlert } = useAlert();
 
   const { username } = useParams();
   const isSelf = username === user?.username ? true : false;
@@ -59,6 +61,7 @@ const Profile = () => {
   const onLogout = () => {
     localStorage.setItem("article-leen-token", "");
     setUser(null);
+    showAlert("Logged Out!");
     navigate("/");
   };
 
