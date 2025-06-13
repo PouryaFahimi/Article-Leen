@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { FaRegHeart } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
+import { MdModeEdit, MdContentCopy } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 import { Dropdown } from "./Dropdown";
+import { Dialog } from "./Dialog";
 
 interface articleSchema {
   _id: string;
@@ -20,13 +22,45 @@ interface Props {
 
 const Article = ({ article }: Props) => {
   const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const relativeDate = useFormattedDate(article.updatedAt);
   const absoluteDate = useFormattedDate(article.updatedAt, "absolute");
   const { user } = useUser();
   const editable = user?.username === article.username ? true : false;
 
+  const shareOptions = () => {
+    return (
+      <div className="flex-rowed">
+        <div>
+          <span>For public usage: (doesn't work currently)</span>
+          <div className="flex-line">
+            <span className="share-link">
+              https://article-leen.com/articles/{article._id}
+            </span>
+            <button>
+              <MdContentCopy size={20} />
+            </button>
+          </div>
+        </div>
+        <div>
+          <span>For local usage:</span>
+          <div className="flex-line">
+            <span className="share-link">
+              http://localhost:5173/articles/{article._id}
+            </span>
+            <button>
+              <MdContentCopy size={20} />
+            </button>
+          </div>
+        </div>
+        <button onClick={() => setIsDialogOpen(false)}>Done</button>
+      </div>
+    );
+  };
+
   const handleSelect = (item: { label: string; value: string }) => {
     console.log("Selected:", item);
+    if (item.value === "share") setIsDialogOpen(true);
   };
 
   return (
@@ -52,6 +86,13 @@ const Article = ({ article }: Props) => {
               ]}
               onSelect={handleSelect}
             />
+            <Dialog
+              isOpen={isDialogOpen}
+              onClose={() => setIsDialogOpen(false)}
+              title="Share"
+            >
+              {shareOptions()}
+            </Dialog>
           </div>
         </div>
         <div className="article-title">

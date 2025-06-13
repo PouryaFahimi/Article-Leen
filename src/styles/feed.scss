@@ -57,3 +57,12 @@
   flex-direction: column;
   row-gap: var(--tt-radius-md);
 }
+
+.share-link {
+  display: block;
+  border: var(--tt-radius-xxs) solid gray;
+  border-radius: var(--tt-radius-md);
+  padding: var(--tt-radius-md);
+  width: 100%;
+  overflow: hidden;
+}
