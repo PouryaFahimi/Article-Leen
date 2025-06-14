@@ -1,0 +1,36 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+  //   align-items: center;
+
+  div {
+    align-items: center;
+  }
+
+  p,
+  h1,
+  h4 {
+    margin: 0;
+  }
+
+  h1 {
+    padding: var(--tt-radius-md) 0;
+  }
+
+  button {
+    border: none;
+    background: none;
+    border-radius: var(--tt-radius-md);
+    padding: var(--tt-radius-md);
+    min-height: 3rem;
+  }
+
+  button:hover {
+    background-color: lightblue;
+  }
+}
+
+.hr {
+  border-top: var(--tt-radius-md) dotted lightblue;
+  opacity: 1;
+}

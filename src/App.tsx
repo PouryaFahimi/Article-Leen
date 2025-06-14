@@ -4,6 +4,7 @@ import Feed from "./components/feed/Feed";
 import LoginPage from "./components/login/LoginPage";
 import EditorPage from "./components/EditorPage";
 import Profile from "./components/profile/Profile";
+import FullView from "./components/feed/FullView";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="feed" element={<Feed />} />
             <Route path="compose" element={<EditorPage />} />
             <Route path=":username" element={<Profile />} />
+            <Route path="articles/:articleId" element={<FullView />} />
           </Route>
         </Routes>
       </BrowserRouter>

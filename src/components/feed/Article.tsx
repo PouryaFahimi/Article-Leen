@@ -8,7 +8,7 @@ import { Dropdown } from "./Dropdown";
 import { Dialog } from "./Dialog";
 import { useAlert } from "../../context/AlertContext";
 
-interface articleSchema {
+export interface articleSchema {
   _id: string;
   title: string;
   content: string;
@@ -73,6 +73,7 @@ const Article = ({ article }: Props) => {
   const handleSelect = (item: { label: string; value: string }) => {
     console.log("Selected:", item);
     if (item.value === "share") setIsDialogOpen(true);
+    if (item.value === "view") navigate(`/articles/${article._id}`);
   };
 
   return (

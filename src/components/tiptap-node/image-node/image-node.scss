@@ -2,8 +2,9 @@
   img {
     max-width: 100%;
     height: auto;
-    display: block;
+    display: flex;
     border-radius: var(--tt-radius-md);
+    justify-self: center;
   }
 
   > img:not([data-type="emoji"] img) {
