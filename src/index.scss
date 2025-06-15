@@ -52,6 +52,13 @@ a:active {
   background: none;
 }
 
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--tt-radius-md);
+}
+
 .outlet {
   padding: var(--tt-radius-xl);
   min-height: 100vh;

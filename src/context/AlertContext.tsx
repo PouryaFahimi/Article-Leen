@@ -1,4 +1,3 @@
-// context/AlertContext.tsx
 import React, { createContext, useCallback, useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { Alert, AlertType } from "../components/universal/Alert";

@@ -3,10 +3,6 @@
   justify-content: space-between;
   //   align-items: center;
 
-  div {
-    align-items: center;
-  }
-
   p,
   h1,
   h4 {
@@ -33,4 +29,55 @@
 .hr {
   border-top: var(--tt-radius-md) dotted lightblue;
   opacity: 1;
+}
+
+.option {
+  p {
+    opacity: 0;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    transition: max-width 0.3s, opacity 0.3s;
+  }
+}
+
+.option:hover {
+  p {
+    opacity: 1;
+    max-width: 8rem;
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: var(--tt-radius-md);
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.icon {
+  font-size: 25px;
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    display: block;
+  }
+
+  .info {
+    display: block;
+
+    div {
+      justify-content: start;
+    }
+  }
+
+  .icon {
+    font-size: 20px;
+  }
 }
