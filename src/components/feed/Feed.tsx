@@ -43,7 +43,7 @@ const Feed = ({ username, counter }: Props) => {
     fetchData();
   }, []);
 
-  if (loading) return <p>Loading feed...</p>;
+  if (loading) return <p>Loading articles...</p>;
 
   return (
     <div className="simple-editor-content feed-list">

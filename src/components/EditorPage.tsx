@@ -1,25 +1,49 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   SimpleEditor,
   SimpleEditorRef,
 } from "./tiptap-templates/simple/simple-editor";
+import { useNavigate, useParams } from "react-router";
 
 interface articleSchema {
   title: string;
   content: string;
 }
 
-interface Props {
-  title?: string;
-  content?: string;
-  updater?: boolean;
-  articleId?: string;
-}
-
-const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
+const EditorPage = () => {
   const editorRef = useRef<SimpleEditorRef>(null);
-  const titleLabel = updater ? "Edit the title:" : "Enter the article title:";
-  const buttonText = updater ? "Update" : "Compose";
+  const navigate = useNavigate();
+  const { articleId } = useParams();
+  console.log(articleId);
+
+  const [article, setArticle] = useState<articleSchema>();
+  const hasFetched = useRef(false);
+
+  const title = article ? article.title : "";
+  const titleLabel = articleId ? "Edit the title:" : "Enter the article title:";
+  const buttonText = articleId ? "Update" : "Compose";
+
+  useEffect(() => {
+    if (!articleId) return;
+
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/articles/${articleId}`
+        );
+        const data = await res.json();
+        setArticle(data);
+        console.log(data.content);
+      } catch (err) {
+        console.error("Failed to fetch feed:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   function calculateContentLength(jsonBody: articleSchema) {
     const stringifiedBody = JSON.stringify(jsonBody);
@@ -43,7 +67,7 @@ const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
     console.log(contentLength);
 
     const requestOptions = {
-      method: updater ? "PUT" : "POST",
+      method: articleId ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
         "Content-Length": contentLength.toString(),
@@ -61,7 +85,7 @@ const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
       })
       .then((data) => {
         console.log("Response from server:", data);
-        window.location.href = "http://localhost:5173/feed";
+        navigate("/feed");
       })
       .catch((error) => {
         console.error("Request failed:", error);
@@ -81,7 +105,8 @@ const EditorPage = ({ title, content, updater, articleId = "" }: Props) => {
           value={title}
         />
       </div>
-      <SimpleEditor ref={editorRef} inContent={content} />
+      {article && <SimpleEditor ref={editorRef} inContent={article.content} />}
+      {!article && <SimpleEditor ref={editorRef} />}
       <button className="btn btn-primary" onClick={onCompose}>
         {buttonText}
       </button>

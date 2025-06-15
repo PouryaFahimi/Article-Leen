@@ -83,7 +83,7 @@ const FullView = () => {
     );
   };
 
-  if (loading) return <p>Loading feed...</p>;
+  if (loading) return <p>Loading article...</p>;
 
   if (!article) return <h1>not found</h1>;
 
@@ -95,7 +95,10 @@ const FullView = () => {
         </div>
         <div className="flex-line">
           {editable && (
-            <button className={styles.option}>
+            <button
+              className={styles.option}
+              onClick={() => navigate(`/compose/${article._id}`)}
+            >
               <MdModeEdit className={styles.icon} />
               <p>Edit</p>
             </button>

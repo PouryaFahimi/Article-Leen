@@ -83,7 +83,7 @@ const Article = ({ article }: Props) => {
           <h2>{article.title}</h2>
           <div className="flex-line">
             {editable && (
-              <button>
+              <button onClick={() => navigate(`/compose/${article._id}`)}>
                 <MdModeEdit size={20} />
               </button>
             )}

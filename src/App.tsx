@@ -14,7 +14,9 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route path="login" element={<LoginPage />} />
             <Route path="feed" element={<Feed />} />
-            <Route path="compose" element={<EditorPage />} />
+            <Route path="compose" element={<EditorPage />}>
+              <Route path=":articleId" element={<EditorPage />} />
+            </Route>
             <Route path=":username" element={<Profile />} />
             <Route path="articles/:articleId" element={<FullView />} />
           </Route>
