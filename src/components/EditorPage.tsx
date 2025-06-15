@@ -4,7 +4,7 @@ import {
   SimpleEditorRef,
 } from "./tiptap-templates/simple/simple-editor";
 import { useNavigate, useParams } from "react-router";
-
+import { useUser } from "../context/UserContext";
 interface articleSchema {
   title: string;
   content: string;
@@ -14,7 +14,7 @@ const EditorPage = () => {
   const editorRef = useRef<SimpleEditorRef>(null);
   const navigate = useNavigate();
   const { articleId } = useParams();
-  console.log(articleId);
+  const { user } = useUser();
 
   const [article, setArticle] = useState<articleSchema>();
   const hasFetched = useRef(false);
@@ -35,8 +35,12 @@ const EditorPage = () => {
           `http://localhost:3000/api/articles/${articleId}`
         );
         const data = await res.json();
+        if (!user || user.username !== data.username) {
+          navigate(-1);
+          // here a state can be shared to show an alert on previous page
+          return;
+        }
         setArticle(data);
-        console.log(data.content);
       } catch (err) {
         console.error("Failed to fetch feed:", err);
       }
