@@ -1,0 +1,36 @@
+.cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vw;
+  height: 10vw;
+  margin: var(--tt-radius-xs);
+}
+
+.box {
+  display: flex;
+  width: 8vw;
+  height: 8vw;
+  justify-content: center;
+  align-items: center;
+  background-color: tomato;
+  color: white;
+  font-size: 6vw;
+  border-radius: 2vw;
+  transition: none;
+}
+
+@media screen and (max-width: 480px) {
+  .cover {
+    width: 12vw;
+    height: 12vw;
+    margin: 0;
+  }
+
+  .box {
+    width: 9vw;
+    height: 9vw;
+    font-size: 8vw;
+    border-radius: 3vw;
+  }
+}

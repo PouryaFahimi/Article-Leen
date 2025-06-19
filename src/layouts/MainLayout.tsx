@@ -1,9 +1,10 @@
-import { Outlet } from "react-router";
-import NavBar from "./NavBar";
-import { UserProvider } from "../context/UserContext";
+import NavBar from "@/components/NavBar";
 import { AlertProvider } from "../context/AlertContext";
+import { UserProvider } from "../context/UserContext";
+import React from "react";
+import { Outlet } from "react-router";
 
-const Home = () => {
+const MainLayout: React.FC = () => {
   return (
     <div>
       <UserProvider>
@@ -18,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default MainLayout;
