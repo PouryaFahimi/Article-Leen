@@ -1,13 +1,13 @@
 .article-card {
   border-radius: var(--tt-radius-md);
   border: var(--tt-radius-xxs) solid gray;
-  min-height: 12rem;
+  min-height: 10rem;
   overflow: hidden;
 }
 
 .article-title {
   border-bottom: var(--tt-radius-xxs) solid gray;
-  padding: var(--tt-radius-md);
+  padding: var(--tt-radius-xs);
   background-color: aliceblue;
   display: flex;
   justify-content: space-between;

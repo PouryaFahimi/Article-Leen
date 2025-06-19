@@ -57,6 +57,7 @@ button {
   justify-content: center;
   align-items: center;
   gap: var(--tt-radius-md);
+  line-height: normal;
 }
 
 .outlet {
@@ -76,7 +77,7 @@ button {
 .flex-line {
   display: flex;
   justify-content: center;
-  column-gap: var(--tt-radius-md);
+  column-gap: var(--tt-radius-sm);
 }
 
 .login-form {
@@ -92,35 +93,8 @@ button {
   }
 }
 
-.prof {
-  display: flex;
-  justify-content: center;
-  column-gap: var(--tt-radius-xl);
-  width: 100%;
-
-  .flex-rowed {
-    align-items: normal;
-  }
-}
-
-.prof-box {
-  border-radius: var(--tt-radius-md);
-  background-color: lightblue;
-  overflow: hidden;
-  padding: var(--tt-radius-md);
-
-  h1 {
-    font-family: "Balencia Lattive", sans-serif;
-    font-size: 3rem;
-  }
-}
-
-.prof-title {
-  width: auto;
-}
-
-.prof-stats {
-  min-width: 25vw;
+.mid-icon {
+  font-size: 20px;
 }
 
 .alert-container {
@@ -156,11 +130,7 @@ button {
     margin: 10vh 0;
   }
 
-  .prof {
-    flex-direction: column;
-  }
-
-  .prof-stats {
-    margin-top: var(--tt-radius-xl);
+  .mid-icon {
+    font-size: 18px;
   }
 }

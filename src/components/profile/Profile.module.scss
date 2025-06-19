@@ -1,0 +1,40 @@
+.prof {
+  display: flex;
+  justify-content: center;
+  gap: var(--tt-radius-xl);
+  width: 100%;
+
+  .flex-rowed {
+    align-items: normal;
+  }
+}
+
+.profBox {
+  border-radius: var(--tt-radius-md);
+  background-color: lightblue;
+  overflow: hidden;
+  padding: var(--tt-radius-md);
+
+  h1 {
+    font-family: "Balencia Lattive", sans-serif;
+    font-size: 3rem;
+  }
+}
+
+.profTitle {
+  width: auto;
+}
+
+.profStats {
+  min-width: 25vw;
+}
+
+@media screen and (max-width: 480px) {
+  .prof {
+    flex-direction: column;
+  }
+
+  .prof-stats {
+    margin-top: var(--tt-radius-xl);
+  }
+}

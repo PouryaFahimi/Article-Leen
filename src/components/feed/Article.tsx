@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaRegBookmark } from "react-icons/fa";
 import { MdModeEdit, MdContentCopy } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
@@ -50,7 +50,7 @@ const Article = ({ article }: Props) => {
               https://article-leen.com/articles/{article._id}
             </span>
             <button onClick={() => copyToClipboard(0)}>
-              <MdContentCopy size={20} />
+              <MdContentCopy className="mid-icon" />
             </button>
           </div>
         </div>
@@ -61,7 +61,7 @@ const Article = ({ article }: Props) => {
               http://localhost:5173/articles/{article._id}
             </span>
             <button onClick={() => copyToClipboard(1)}>
-              <MdContentCopy size={20} />
+              <MdContentCopy className="mid-icon" />
             </button>
           </div>
         </div>
@@ -84,11 +84,14 @@ const Article = ({ article }: Props) => {
           <div className="flex-line">
             {editable && (
               <button onClick={() => navigate(`/compose/${article._id}`)}>
-                <MdModeEdit size={20} />
+                <MdModeEdit className="mid-icon" />
               </button>
             )}
             <button>
-              <FaRegHeart size={20} />
+              <FaRegHeart className="mid-icon" />
+            </button>
+            <button>
+              <FaRegBookmark className="mid-icon" />
             </button>
             <Dropdown
               label=""

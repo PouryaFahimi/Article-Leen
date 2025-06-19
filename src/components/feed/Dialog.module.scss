@@ -17,6 +17,10 @@
   padding: var(--tt-radius-md);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+
+  button {
+    min-height: auto !important;
+  }
 }
 
 .header {
@@ -24,4 +28,11 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+
+  h2 {
+    margin: 0;
+    padding-left: var(--tt-radius-md);
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
 }

@@ -4,6 +4,7 @@ import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { useNavigate, useParams } from "react-router";
 import { useUser } from "../../context/UserContext";
 import { useAlert } from "../../context/AlertContext";
+import styles from "./Profile.module.scss";
 
 export interface tokenPlayLoad {
   username: string;
@@ -67,9 +68,9 @@ const Profile = () => {
 
   return (
     <>
-      <div className="prof">
+      <div className={styles.prof}>
         <div className="flex-rowed">
-          <div className="prof-box prof-title">
+          <div className={`${styles.profBox} ${styles.profTitle}`}>
             <h1>{username}</h1>
             <h5>Joined at: {absoluteDate}</h5>
             {isSelf && (
@@ -91,10 +92,10 @@ const Profile = () => {
             <button className="btn btn-secondary">Bookmarked Articles</button>
           )}
         </div>
-        <div className="prof-box prof-stats">
+        <div className={`${styles.profBox} ${styles.profStats}`}>
           <h3>Status:</h3>
           <p>Total articles: {articleNum}</p>
-          <p>Stars achieved: 0</p>
+          <p>Hearts achieved: 0</p>
         </div>
       </div>
       <div className="flex-rowed">
