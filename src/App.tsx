@@ -9,7 +9,7 @@ import HomePage from "./components/home/HomePage";
 
 function App() {
   return (
-    <div className="backColor">
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>

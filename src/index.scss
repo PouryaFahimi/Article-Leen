@@ -2,8 +2,8 @@
 @import "./styles/_keyframe-animations.scss";
 
 @font-face {
-  font-family: Forte;
-  src: url("./assets/fonts/forte.ttf") format("truetype");
+  font-family: "DM Sans";
+  src: url("./assets/fonts/DMSans.ttf") format("truetype");
 }
 
 @font-face {
@@ -95,6 +95,7 @@ button {
 
 .mid-icon {
   font-size: 20px;
+  overflow: visible;
 }
 
 .alert-container {
@@ -128,9 +129,5 @@ button {
   .login-form {
     width: 100%;
     margin: 10vh 0;
-  }
-
-  .mid-icon {
-    font-size: 18px;
   }
 }

@@ -97,7 +97,6 @@ const Article = ({ article }: Props) => {
               label=""
               items={[
                 { label: "Share", value: "share" },
-                { label: "Bookmark", value: "bookmark" },
                 { label: "Full view", value: "view" },
               ]}
               onSelect={handleSelect}

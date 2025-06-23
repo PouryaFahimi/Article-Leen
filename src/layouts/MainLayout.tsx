@@ -10,9 +10,11 @@ const MainLayout: React.FC = () => {
       <UserProvider>
         <AlertProvider>
           <NavBar />
-          <div className="outlet flex-rowed">
-            <Outlet />
-          </div>
+          <main>
+            <div className="outlet flex-rowed">
+              <Outlet />
+            </div>
+          </main>
         </AlertProvider>
       </UserProvider>
     </div>
