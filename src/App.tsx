@@ -5,7 +5,7 @@ import EditorPage from "./components/EditorPage";
 import Profile from "./components/profile/Profile";
 import FullView from "./components/feed/FullView";
 import MainLayout from "./layouts/MainLayout";
-import HomePage from "./components/home/HomePage";
+import Home from "./components/home/Home";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<HomePage />} />
+            <Route index element={<Home />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="feed" element={<Feed />} />
             <Route path="compose" element={<EditorPage />}>

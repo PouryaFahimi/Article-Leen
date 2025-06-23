@@ -1,0 +1,102 @@
+import { Link } from "react-router-dom";
+import LetterBox from "./LetterBox";
+import styles from "./Home.module.scss";
+import { MdKey, MdMenuBook, MdModeEdit } from "react-icons/md";
+import { FaAngleDoubleUp, FaHeart, FaShieldAlt } from "react-icons/fa";
+import { IoMdStopwatch } from "react-icons/io";
+import { HiSparkles } from "react-icons/hi2";
+import { LuTextCursorInput } from "react-icons/lu";
+
+const Home = () => {
+  const brand = [[..."article"], [..."leen"]];
+  let index = 0;
+
+  const showBrand = () => {
+    return brand.map((word) => (
+      <div className="flex-line">
+        {word.map((letter) => (
+          <LetterBox delay={index++ * 1000}>{letter.toUpperCase()}</LetterBox>
+        ))}
+      </div>
+    ));
+  };
+
+  return (
+    <>
+      <h1 className="flex-line">Welcome To</h1>
+      {showBrand()}
+      <div className={styles.card}>
+        <h3>A lovely place to:</h3>
+        <ul>
+          <li>
+            <MdModeEdit />
+            Write & Publish your thoughts and ideas in form of an Article
+          </li>
+          <hr />
+          <li>
+            <MdMenuBook />
+            Read other users articles & Share them
+          </li>
+          <hr />
+          <li>
+            <FaAngleDoubleUp />
+            Grow up together & Learn from each other
+          </li>
+          <hr />
+          <li>
+            <FaHeart />
+            And love!
+          </li>
+        </ul>
+      </div>
+      <div className={styles.card}>
+        <h3>Along nice features like:</h3>
+        <ul>
+          <li>
+            <LuTextCursorInput />A powerful text editor powered by tiptap
+          </li>
+          <hr />
+          <li>
+            <IoMdStopwatch />
+            Fast & easy
+          </li>
+          <hr />
+          <li>
+            <HiSparkles />
+            Comfortable design
+          </li>
+          <hr />
+          <li>
+            <FaShieldAlt />
+            Security
+          </li>
+          <hr />
+          <li>
+            <MdKey />
+            Authentication
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h2>Attention: The project is in initial state!</h2>
+      </div>
+      <div className={styles.card}>
+        <h3>Some useful sections you may miss:</h3>
+        <Link to="charts">charts</Link>
+      </div>
+      <div className={styles.card}>
+        <h3>Features that doesn't work currently:</h3>
+        <ul>
+          <li>like</li>
+          <li>bookmark</li>
+          <li>delete</li>
+          <li>search</li>
+          <li>article images</li>
+          <li>there is no footer yet</li>
+        </ul>
+      </div>
+    </>
+  );
+};
+
+export default Home;
