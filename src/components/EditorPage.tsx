@@ -19,7 +19,6 @@ const EditorPage = () => {
   const [article, setArticle] = useState<articleSchema>();
   const hasFetched = useRef(false);
 
-  const title = article ? article.title : "";
   const titleLabel = articleId ? "Edit the title:" : "Enter the article title:";
   const buttonText = articleId ? "Update" : "Compose";
 
@@ -47,6 +46,8 @@ const EditorPage = () => {
     };
 
     fetchData();
+
+    setTitle();
   }, []);
 
   function calculateContentLength(jsonBody: articleSchema) {
@@ -57,6 +58,11 @@ const EditorPage = () => {
   const getTitle = () => {
     const temp = document.getElementById("artitle") as HTMLInputElement;
     return temp.value;
+  };
+
+  const setTitle = () => {
+    const temp = document.getElementById("artitle") as HTMLInputElement;
+    temp.value = article ? article.title : "";
   };
 
   const onCompose = () => {
@@ -102,12 +108,7 @@ const EditorPage = () => {
         <label htmlFor="artitle" className="form-label">
           {titleLabel}
         </label>
-        <input
-          id="artitle"
-          type="text"
-          className="form-control"
-          value={title}
-        />
+        <input id="artitle" type="text" className="form-control" />
       </div>
       {article && <SimpleEditor ref={editorRef} inContent={article.content} />}
       {!article && <SimpleEditor ref={editorRef} />}
