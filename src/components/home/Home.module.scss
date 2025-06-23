@@ -32,3 +32,24 @@
     opacity: 0.5;
   }
 }
+
+.attention {
+  border: var(--tt-radius-xxs) solid tomato;
+  border-radius: var(--tt-radius-md);
+  overflow: hidden;
+  padding: var(--tt-radius-xs);
+
+  h4 {
+    margin: 0;
+    line-height: normal;
+  }
+
+  strong {
+    display: inline-block;
+    border-radius: var(--tt-radius-md);
+    background-color: tomato;
+    color: white;
+    padding: var(--tt-radius-xs);
+    margin-right: 1rem;
+  }
+}

@@ -77,8 +77,10 @@ const Home = () => {
           </li>
         </ul>
       </div>
-      <div>
-        <h2>Attention: The project is in initial state!</h2>
+      <div className={styles.attention}>
+        <h4>
+          <strong>Attention</strong>The project is in initial state!
+        </h4>
       </div>
       <div className={styles.card}>
         <h3>Some useful sections you may miss:</h3>
