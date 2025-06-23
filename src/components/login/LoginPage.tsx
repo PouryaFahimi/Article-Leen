@@ -19,8 +19,6 @@ function LoginPage() {
   };
 
   const onRegister = (inData: LoginData, endpoint = "register") => {
-    console.log("should register", inData);
-
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,8 +35,7 @@ function LoginPage() {
       })
       .then((data) => {
         console.log("Response from server:", data);
-        if (endpoint === "login")
-          localStorage.setItem("article-leen-token", data.token);
+        localStorage.setItem("article-leen-token", data.token);
         showAlert("Successful Login!", "success");
         setUser({ username: inData.username });
         navigate("/" + inData.username);

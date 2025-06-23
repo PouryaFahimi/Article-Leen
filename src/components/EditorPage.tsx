@@ -13,7 +13,8 @@ interface articleSchema {
 const EditorPage = () => {
   const editorRef = useRef<SimpleEditorRef>(null);
   const navigate = useNavigate();
-  const { articleId } = useParams();
+  let { articleId } = useParams();
+  articleId = articleId ? articleId : "";
   const { user } = useUser();
 
   const [article, setArticle] = useState<articleSchema>();
