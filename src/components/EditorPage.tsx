@@ -112,7 +112,7 @@ const EditorPage = () => {
         <input id="artitle" type="text" className="form-control" />
       </div>
       {article && <SimpleEditor ref={editorRef} inContent={article.content} />}
-      {!article && <SimpleEditor ref={editorRef} />}
+      {!article && <SimpleEditor ref={editorRef} inContent="" />}
       <button className="btn btn-primary" onClick={onCompose}>
         {buttonText}
       </button>

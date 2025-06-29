@@ -18,6 +18,7 @@ import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
 import { Underline } from "@tiptap/extension-underline";
+import Placeholder from "@tiptap/extension-placeholder";
 
 // --- Custom Extensions ---
 import { Link } from "@/components/tiptap-extension/link-extension";
@@ -224,6 +225,9 @@ export const SimpleEditor = forwardRef<SimpleEditorRef, Props>(
         Typography,
         Superscript,
         Subscript,
+        Placeholder.configure({
+          placeholder: "Write something …",
+        }),
 
         Selection,
         ImageUploadNode.configure({
