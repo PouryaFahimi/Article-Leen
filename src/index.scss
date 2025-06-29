@@ -80,6 +80,11 @@ button {
   column-gap: var(--tt-radius-sm);
 }
 
+.wide-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
 .login-form {
   width: 60vw;
   padding: var(--tt-radius-md);

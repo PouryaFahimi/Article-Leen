@@ -5,10 +5,11 @@ import { articleSchema } from "./Article";
 
 interface Props {
   who?: string;
+  type?: "default" | "likes" | "bookmarks";
   counter?: (count: number) => void;
 }
 
-const Feed = ({ who, counter }: Props) => {
+const Feed = ({ who, type = "default", counter }: Props) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
@@ -26,12 +27,12 @@ const Feed = ({ who, counter }: Props) => {
     if (hasFetched.current) return;
     hasFetched.current = true;
 
+    let url = `http://localhost:3000/api/articles/${endpoint}`;
+    if (type === "likes") url = "http://localhost:3000/api/likes/user";
+
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3000/api/articles/${endpoint}`,
-          requestOptions
-        );
+        const res = await fetch(url, requestOptions);
         const data = await res.json();
         setArticles(data);
         if (counter) counter(data.length);

@@ -6,6 +6,7 @@ import Profile from "./components/profile/Profile";
 import FullView from "./components/feed/FullView";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./components/home/Home";
+import LikesPage from "./pages/LikesPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path=":articleId" element={<EditorPage />} />
             </Route>
             <Route path=":username" element={<Profile />} />
+            <Route path=":username/likes" element={<LikesPage />} />
             <Route path="articles/:articleId" element={<FullView />} />
           </Route>
         </Routes>

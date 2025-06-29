@@ -87,7 +87,12 @@ const Profile = () => {
               Compose a new Article
             </button>
           )}
-          <button className="btn btn-secondary">Likes</button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate("likes")}
+          >
+            Likes
+          </button>
           {isSelf && (
             <button className="btn btn-secondary">Bookmarked Articles</button>
           )}
