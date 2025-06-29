@@ -1,25 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import Article from "./Article";
-
-interface articleSchema {
-  _id: string;
-  title: string;
-  content: string;
-  username: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { useUser } from "../../context/UserContext";
+import { articleSchema } from "./Article";
 
 interface Props {
-  username?: string;
+  who?: string;
   counter?: (count: number) => void;
 }
 
-const Feed = ({ username, counter }: Props) => {
+const Feed = ({ who, counter }: Props) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
-  const endpoint = username ? `user/${username}` : "";
+  const endpoint = who ? `user/${who}` : "";
+  const { user } = useUser();
+
+  const requestOptions = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+    },
+  };
 
   useEffect(() => {
     if (hasFetched.current) return;
@@ -28,7 +29,8 @@ const Feed = ({ username, counter }: Props) => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/articles/${endpoint}`
+          `http://localhost:3000/api/articles/${endpoint}`,
+          requestOptions
         );
         const data = await res.json();
         setArticles(data);

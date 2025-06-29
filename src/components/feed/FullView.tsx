@@ -4,7 +4,7 @@ import { articleSchema } from "./Article";
 import styles from "./FullView.module.scss";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { useUser } from "../../context/UserContext";
-import { FaRegHeart, FaRegBookmark, FaShareAlt } from "react-icons/fa";
+import { FaRegHeart, FaRegBookmark, FaShareAlt, FaHeart } from "react-icons/fa";
 import { Dialog } from "./Dialog";
 import { MdContentCopy, MdModeEdit } from "react-icons/md";
 import { useAlert } from "../../context/AlertContext";
@@ -15,12 +15,20 @@ const FullView = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { showAlert } = useAlert();
   const [article, setArticle] = useState<articleSchema>();
+  const [liked, setLiked] = useState(false);
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
   const createDate = useFormattedDate(article?.createdAt, "absolute");
   const updateDate = useFormattedDate(article?.updatedAt, "absolute");
   const { user } = useUser();
   const editable = user?.username === article?.username ? true : false;
+
+  const requestOptions = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+    },
+  };
 
   useEffect(() => {
     if (hasFetched.current) return;
@@ -29,10 +37,13 @@ const FullView = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/articles/${articleId}`
+          `http://localhost:3000/api/articles/${articleId}`,
+          requestOptions
         );
         const data = await res.json();
         setArticle(data);
+        setLiked(data.isLiked);
+        console.log(data);
       } catch (err) {
         console.error("Failed to fetch feed:", err);
       } finally {
@@ -83,6 +94,31 @@ const FullView = () => {
     );
   };
 
+  const onLike = () => {
+    const requestOptions = {
+      method: liked ? "DELETE" : "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+      },
+    };
+
+    fetch(`http://localhost:3000/api/likes/${article?._id}`, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Response from server:", data);
+        setLiked(!liked);
+      })
+      .catch((error) => {
+        console.error("Request failed:", error);
+      });
+  };
+
   if (loading) return <p>Loading article...</p>;
 
   if (!article) return <h1>not found</h1>;
@@ -103,8 +139,12 @@ const FullView = () => {
               <p>Edit</p>
             </button>
           )}
-          <button className={styles.option}>
-            <FaRegHeart className={styles.icon} />
+          <button className={styles.option} onClick={onLike}>
+            {liked ? (
+              <FaHeart className={styles.icon} />
+            ) : (
+              <FaRegHeart className={styles.icon} />
+            )}
             <p>Like</p>
           </button>
           <button className={styles.option}>

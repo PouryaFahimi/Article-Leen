@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
-import { FaRegHeart, FaRegBookmark } from "react-icons/fa";
+import { FaRegHeart, FaRegBookmark, FaHeart } from "react-icons/fa";
 import { MdModeEdit, MdContentCopy } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
@@ -15,6 +15,7 @@ export interface articleSchema {
   username: string;
   createdAt: string;
   updatedAt: string;
+  isLiked: boolean;
 }
 
 interface Props {
@@ -23,6 +24,7 @@ interface Props {
 
 const Article = ({ article }: Props) => {
   const navigate = useNavigate();
+  const [liked, setLiked] = useState(article.isLiked);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const relativeDate = useFormattedDate(article.updatedAt);
   const absoluteDate = useFormattedDate(article.updatedAt, "absolute");
@@ -70,6 +72,31 @@ const Article = ({ article }: Props) => {
     );
   };
 
+  const onLike = () => {
+    const requestOptions = {
+      method: liked ? "DELETE" : "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+      },
+    };
+
+    fetch(`http://localhost:3000/api/likes/${article._id}`, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Response from server:", data);
+        setLiked(!liked);
+      })
+      .catch((error) => {
+        console.error("Request failed:", error);
+      });
+  };
+
   const handleSelect = (item: { label: string; value: string }) => {
     console.log("Selected:", item);
     if (item.value === "share") setIsDialogOpen(true);
@@ -87,8 +114,12 @@ const Article = ({ article }: Props) => {
                 <MdModeEdit className="mid-icon" />
               </button>
             )}
-            <button>
-              <FaRegHeart className="mid-icon" />
+            <button onClick={onLike}>
+              {liked ? (
+                <FaHeart className="mid-icon" />
+              ) : (
+                <FaRegHeart className="mid-icon" />
+              )}
             </button>
             <button>
               <FaRegBookmark className="mid-icon" />
