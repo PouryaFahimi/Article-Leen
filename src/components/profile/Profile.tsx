@@ -80,21 +80,21 @@ const Profile = () => {
             )}
           </div>
           {isSelf && (
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/compose")}
-            >
-              Compose a new Article
-            </button>
-          )}
-          <button
-            className="btn btn-secondary"
-            onClick={() => navigate("likes")}
-          >
-            Likes
-          </button>
-          {isSelf && (
-            <button className="btn btn-secondary">Bookmarked Articles</button>
+            <>
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate("/compose")}
+              >
+                Compose a new Article
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate("likes")}
+              >
+                Likes
+              </button>
+              <button className="btn btn-secondary">Bookmarked Articles</button>
+            </>
           )}
         </div>
         <div className={`${styles.profBox} ${styles.profStats}`}>

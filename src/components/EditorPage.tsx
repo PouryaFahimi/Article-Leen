@@ -23,6 +23,13 @@ const EditorPage = () => {
   const titleLabel = articleId ? "Edit the title:" : "Enter the article title:";
   const buttonText = articleId ? "Update" : "Compose";
 
+  const requestOptions = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+    },
+  };
+
   useEffect(() => {
     if (!articleId) return;
 
@@ -32,7 +39,8 @@ const EditorPage = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/articles/${articleId}`
+          `http://localhost:3000/api/articles/${articleId}`,
+          requestOptions
         );
         const data = await res.json();
         if (!user || user.username !== data.username) {

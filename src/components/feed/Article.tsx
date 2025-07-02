@@ -89,8 +89,9 @@ const Article = ({ article }: Props) => {
         return response.json();
       })
       .then((data) => {
-        console.log("Response from server:", data);
+        // console.log("Response from server:", data);
         setLiked(!liked);
+        showAlert(data.message, "info");
       })
       .catch((error) => {
         console.error("Request failed:", error);
