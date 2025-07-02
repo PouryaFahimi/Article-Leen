@@ -6,7 +6,7 @@ import Profile from "./components/profile/Profile";
 import FullView from "./components/feed/FullView";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./components/home/Home";
-import LikesPage from "./pages/LikesPage";
+import LibraryPage from "./pages/LibraryPage";
 
 function App() {
   return (
@@ -21,7 +21,14 @@ function App() {
               <Route path=":articleId" element={<EditorPage />} />
             </Route>
             <Route path=":username" element={<Profile />} />
-            <Route path=":username/likes" element={<LikesPage />} />
+            <Route
+              path=":username/likes"
+              element={<LibraryPage type="likes" />}
+            />
+            <Route
+              path=":username/bookmarks"
+              element={<LibraryPage type="bookmarks" />}
+            />
             <Route path="articles/:articleId" element={<FullView />} />
           </Route>
         </Routes>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
-import { FaRegHeart, FaRegBookmark, FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaRegBookmark, FaHeart, FaBookmark } from "react-icons/fa";
 import { MdModeEdit, MdContentCopy } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
@@ -16,6 +16,7 @@ export interface articleSchema {
   createdAt: string;
   updatedAt: string;
   isLiked: boolean;
+  isBookmarked: boolean;
 }
 
 interface Props {
@@ -25,6 +26,7 @@ interface Props {
 const Article = ({ article }: Props) => {
   const navigate = useNavigate();
   const [liked, setLiked] = useState(article.isLiked);
+  const [bookmarked, setBookmarked] = useState(article.isBookmarked);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const relativeDate = useFormattedDate(article.updatedAt);
   const absoluteDate = useFormattedDate(article.updatedAt, "absolute");
@@ -72,16 +74,16 @@ const Article = ({ article }: Props) => {
     );
   };
 
-  const onLike = () => {
+  const onAdd = (action: "likes" | "bookmarks", actionValue: boolean) => {
     const requestOptions = {
-      method: liked ? "DELETE" : "POST",
+      method: actionValue ? "DELETE" : "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
       },
     };
 
-    fetch(`http://localhost:3000/api/likes/${article._id}`, requestOptions)
+    fetch(`http://localhost:3000/api/${action}/${article._id}`, requestOptions)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -90,7 +92,8 @@ const Article = ({ article }: Props) => {
       })
       .then((data) => {
         // console.log("Response from server:", data);
-        setLiked(!liked);
+        if (action === "likes") setLiked(!liked);
+        else setBookmarked(!bookmarked);
         showAlert(data.message, "info");
       })
       .catch((error) => {
@@ -115,15 +118,19 @@ const Article = ({ article }: Props) => {
                 <MdModeEdit className="mid-icon" />
               </button>
             )}
-            <button onClick={onLike}>
+            <button onClick={() => onAdd("likes", liked)}>
               {liked ? (
                 <FaHeart className="mid-icon" />
               ) : (
                 <FaRegHeart className="mid-icon" />
               )}
             </button>
-            <button>
-              <FaRegBookmark className="mid-icon" />
+            <button onClick={() => onAdd("bookmarks", bookmarked)}>
+              {bookmarked ? (
+                <FaBookmark className="mid-icon" />
+              ) : (
+                <FaRegBookmark className="mid-icon" />
+              )}
             </button>
             <Dropdown
               label=""

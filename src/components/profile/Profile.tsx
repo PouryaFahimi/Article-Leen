@@ -93,7 +93,12 @@ const Profile = () => {
               >
                 Likes
               </button>
-              <button className="btn btn-secondary">Bookmarked Articles</button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate("bookmarks")}
+              >
+                Bookmarked Articles
+              </button>
             </>
           )}
         </div>

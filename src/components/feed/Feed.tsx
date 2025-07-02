@@ -27,8 +27,19 @@ const Feed = ({ who, type = "default", counter }: Props) => {
     if (hasFetched.current) return;
     hasFetched.current = true;
 
-    let url = `http://localhost:3000/api/articles/${endpoint}`;
-    if (type === "likes") url = "http://localhost:3000/api/likes/user";
+    let url = `http://localhost:3000/api/`;
+
+    switch (type) {
+      case "likes":
+        url += "likes/user";
+        break;
+      case "bookmarks":
+        url += "bookmarks";
+        break;
+      default:
+        url += `articles/${endpoint}`;
+        break;
+    }
 
     const fetchData = async () => {
       try {

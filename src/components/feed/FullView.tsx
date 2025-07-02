@@ -4,7 +4,13 @@ import { articleSchema } from "./Article";
 import styles from "./FullView.module.scss";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { useUser } from "../../context/UserContext";
-import { FaRegHeart, FaRegBookmark, FaShareAlt, FaHeart } from "react-icons/fa";
+import {
+  FaRegHeart,
+  FaRegBookmark,
+  FaShareAlt,
+  FaHeart,
+  FaBookmark,
+} from "react-icons/fa";
 import { Dialog } from "./Dialog";
 import { MdContentCopy, MdModeEdit } from "react-icons/md";
 import { useAlert } from "../../context/AlertContext";
@@ -16,6 +22,7 @@ const FullView = () => {
   const { showAlert } = useAlert();
   const [article, setArticle] = useState<articleSchema>();
   const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
   const createDate = useFormattedDate(article?.createdAt, "absolute");
@@ -43,6 +50,7 @@ const FullView = () => {
         const data = await res.json();
         setArticle(data);
         setLiked(data.isLiked);
+        setBookmarked(data.isBookmarked);
         console.log(data);
       } catch (err) {
         console.error("Failed to fetch feed:", err);
@@ -94,16 +102,16 @@ const FullView = () => {
     );
   };
 
-  const onLike = () => {
+  const onAdd = (action: "likes" | "bookmarks", actionValue: boolean) => {
     const requestOptions = {
-      method: liked ? "DELETE" : "POST",
+      method: actionValue ? "DELETE" : "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
       },
     };
 
-    fetch(`http://localhost:3000/api/likes/${article?._id}`, requestOptions)
+    fetch(`http://localhost:3000/api/${action}/${article?._id}`, requestOptions)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -112,7 +120,8 @@ const FullView = () => {
       })
       .then((data) => {
         // console.log("Response from server:", data);
-        setLiked(!liked);
+        if (action === "likes") setLiked(!liked);
+        else setBookmarked(!bookmarked);
         showAlert(data.message, "info");
       })
       .catch((error) => {
@@ -140,7 +149,10 @@ const FullView = () => {
               <p>Edit</p>
             </button>
           )}
-          <button className={styles.option} onClick={onLike}>
+          <button
+            className={styles.option}
+            onClick={() => onAdd("likes", liked)}
+          >
             {liked ? (
               <FaHeart className={styles.icon} />
             ) : (
@@ -148,8 +160,15 @@ const FullView = () => {
             )}
             <p>Like</p>
           </button>
-          <button className={styles.option}>
-            <FaRegBookmark className={styles.icon} />
+          <button
+            className={styles.option}
+            onClick={() => onAdd("bookmarks", bookmarked)}
+          >
+            {bookmarked ? (
+              <FaBookmark className={styles.icon} />
+            ) : (
+              <FaRegBookmark className={styles.icon} />
+            )}
             <p>Bookmark</p>
           </button>
           <button
