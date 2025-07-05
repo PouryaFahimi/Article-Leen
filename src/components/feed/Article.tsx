@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
-import { FaRegHeart, FaRegBookmark, FaHeart, FaBookmark } from "react-icons/fa";
+import {
+  FaRegHeart,
+  FaRegBookmark,
+  FaHeart,
+  FaBookmark,
+  FaShareAlt,
+  FaRegTrashAlt,
+} from "react-icons/fa";
 import { MdModeEdit, MdContentCopy } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import { Dropdown } from "./Dropdown";
 import { Dialog } from "./Dialog";
 import { useAlert } from "../../context/AlertContext";
+import { LuScrollText } from "react-icons/lu";
 
 export interface articleSchema {
   _id: string;
@@ -28,6 +36,7 @@ const Article = ({ article }: Props) => {
   const [liked, setLiked] = useState(article.isLiked);
   const [bookmarked, setBookmarked] = useState(article.isBookmarked);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDelDialogOpen, setIsDelDialogOpen] = useState(false);
   const relativeDate = useFormattedDate(article.updatedAt);
   const absoluteDate = useFormattedDate(article.updatedAt, "absolute");
   const { user } = useUser();
@@ -91,7 +100,6 @@ const Article = ({ article }: Props) => {
         return response.json();
       })
       .then((data) => {
-        // console.log("Response from server:", data);
         if (action === "likes") setLiked(!liked);
         else setBookmarked(!bookmarked);
         showAlert(data.message, "info");
@@ -101,10 +109,30 @@ const Article = ({ article }: Props) => {
       });
   };
 
-  const handleSelect = (item: { label: string; value: string }) => {
-    console.log("Selected:", item);
-    if (item.value === "share") setIsDialogOpen(true);
-    if (item.value === "view") navigate(`/articles/${article._id}`);
+  const onDelete = () => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+      },
+    };
+
+    fetch(`http://localhost:3000/api/articles/${article._id}`, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // showAlert(data.message, "info");
+      })
+      .catch((error) => {
+        console.error("Request failed:", error);
+      });
+
+    navigate(0);
   };
 
   return (
@@ -132,20 +160,40 @@ const Article = ({ article }: Props) => {
                 <FaRegBookmark className="mid-icon" />
               )}
             </button>
-            <Dropdown
-              label=""
-              items={[
-                { label: "Share", value: "share" },
-                { label: "Full view", value: "view" },
-              ]}
-              onSelect={handleSelect}
-            />
+            <Dropdown label="">
+              <button onClick={() => setIsDialogOpen(true)}>
+                <FaShareAlt className="mid-icon" />
+                Share
+              </button>
+              <button onClick={() => navigate(`/articles/${article._id}`)}>
+                <LuScrollText className="mid-icon" />
+                Full View
+              </button>
+              {editable && (
+                <button onClick={() => setIsDelDialogOpen(true)}>
+                  <FaRegTrashAlt className="mid-icon" />
+                  Delete
+                </button>
+              )}
+            </Dropdown>
             <Dialog
               isOpen={isDialogOpen}
               onClose={() => setIsDialogOpen(false)}
               title="Share"
             >
               {shareOptions()}
+            </Dialog>
+            <Dialog
+              isOpen={isDelDialogOpen}
+              onClose={() => setIsDelDialogOpen(false)}
+              title="Delete"
+            >
+              <div className="flex-rowed">
+                <span>
+                  Are you sure you want to delete "{article.title}" article?
+                </span>
+                <button onClick={onDelete}>Yes</button>
+              </div>
             </Dialog>
           </div>
         </div>

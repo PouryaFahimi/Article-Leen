@@ -10,6 +10,7 @@ import {
   FaShareAlt,
   FaHeart,
   FaBookmark,
+  FaRegTrashAlt,
 } from "react-icons/fa";
 import { Dialog } from "./Dialog";
 import { MdContentCopy, MdModeEdit } from "react-icons/md";
@@ -19,6 +20,7 @@ const FullView = () => {
   const { articleId } = useParams();
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDelDialogOpen, setIsDelDialogOpen] = useState(false);
   const { showAlert } = useAlert();
   const [article, setArticle] = useState<articleSchema>();
   const [liked, setLiked] = useState(false);
@@ -51,7 +53,7 @@ const FullView = () => {
         setArticle(data);
         setLiked(data.isLiked);
         setBookmarked(data.isBookmarked);
-        console.log(data);
+        // console.log(data);
       } catch (err) {
         console.error("Failed to fetch feed:", err);
       } finally {
@@ -129,6 +131,32 @@ const FullView = () => {
       });
   };
 
+  const onDelete = () => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("article-leen-token")}`,
+      },
+    };
+
+    fetch(`http://localhost:3000/api/articles/${article?._id}`, requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // showAlert(data.message, "info");
+      })
+      .catch((error) => {
+        console.error("Request failed:", error);
+      });
+
+    navigate(-1);
+  };
+
   if (loading) return <p>Loading article...</p>;
 
   if (!article) return <h1>not found</h1>;
@@ -141,13 +169,22 @@ const FullView = () => {
         </div>
         <div className="flex-line">
           {editable && (
-            <button
-              className={styles.option}
-              onClick={() => navigate(`/compose/${article._id}`)}
-            >
-              <MdModeEdit className={styles.icon} />
-              <p>Edit</p>
-            </button>
+            <>
+              <button
+                className={styles.option}
+                onClick={() => setIsDelDialogOpen(true)}
+              >
+                <FaRegTrashAlt className={styles.icon} />
+                <p>Delete</p>
+              </button>
+              <button
+                className={styles.option}
+                onClick={() => navigate(`/compose/${article._id}`)}
+              >
+                <MdModeEdit className={styles.icon} />
+                <p>Edit</p>
+              </button>
+            </>
           )}
           <button
             className={styles.option}
@@ -184,6 +221,18 @@ const FullView = () => {
             title="Share"
           >
             {shareOptions()}
+          </Dialog>
+          <Dialog
+            isOpen={isDelDialogOpen}
+            onClose={() => setIsDelDialogOpen(false)}
+            title="Delete"
+          >
+            <div className="flex-rowed">
+              <span>
+                Are you sure you want to delete "{article.title}" article?
+              </span>
+              <button onClick={onDelete}>Yes</button>
+            </div>
           </Dialog>
         </div>
       </div>

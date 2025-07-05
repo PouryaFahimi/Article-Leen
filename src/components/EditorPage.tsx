@@ -98,7 +98,7 @@ const EditorPage = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("Response from server:", data);
+        // console.log("Response from server:", data);
         navigate("/feed");
       })
       .catch((error) => {

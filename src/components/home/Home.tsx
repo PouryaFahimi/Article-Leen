@@ -89,11 +89,7 @@ const Home = () => {
       <div className={styles.card}>
         <h3>Features that doesn't work currently:</h3>
         <ul>
-          <li>like</li>
-          <li>bookmark</li>
-          <li>delete</li>
-          <li>search</li>
-          <li>article images</li>
+          <li>Showing article images doesn't work correctly for now.</li>
           <li>there is no footer yet</li>
         </ul>
       </div>

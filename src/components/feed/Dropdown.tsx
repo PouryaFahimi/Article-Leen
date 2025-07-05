@@ -4,30 +4,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MdMoreVert } from "react-icons/md";
 import styles from "./Dropdown.module.scss";
 
-interface DropdownItem {
-  label: string;
-  value: string;
-}
-
 interface DropdownProps {
   label: string;
-  items: DropdownItem[];
-  onSelect: (item: DropdownItem) => void;
+  children: React.ReactNode;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
-  label,
-  items,
-  onSelect,
-}) => {
+export const Dropdown: React.FC<DropdownProps> = ({ label, children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
+        dropdownRef.current
+        // && !dropdownRef.current.contains(e.target as Node)
       ) {
         setIsOpen(false);
       }
@@ -43,7 +33,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {label}
-        <MdMoreVert size={20} />
+        <MdMoreVert className="mid-icon" />
       </button>
 
       <AnimatePresence>
@@ -55,18 +45,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
           >
-            {items.map((item) => (
-              <button
-                key={item.value}
-                className={styles.item}
-                onClick={() => {
-                  onSelect(item);
-                  setIsOpen(false);
-                }}
-              >
-                {item.label}
-              </button>
-            ))}
+            {children}
           </motion.div>
         )}
       </AnimatePresence>
