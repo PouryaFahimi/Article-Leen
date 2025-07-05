@@ -5,11 +5,12 @@ import { articleSchema } from "./Article";
 
 interface Props {
   who?: string;
-  type?: "default" | "likes" | "bookmarks";
+  type?: "default" | "likes" | "bookmarks" | "search";
+  query?: string;
   counter?: (count: number) => void;
 }
 
-const Feed = ({ who, type = "default", counter }: Props) => {
+const Feed = ({ who, type = "default", query = "", counter }: Props) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
@@ -36,6 +37,9 @@ const Feed = ({ who, type = "default", counter }: Props) => {
       case "bookmarks":
         url += "bookmarks";
         break;
+      case "search":
+        url += `articles/search?q=${query}`;
+        break;
       default:
         url += `articles/${endpoint}`;
         break;
@@ -55,7 +59,7 @@ const Feed = ({ who, type = "default", counter }: Props) => {
     };
 
     fetchData();
-  }, []);
+  }, [type, query]); // have no effect because of hasFetched
 
   if (loading) return <p>Loading articles...</p>;
 

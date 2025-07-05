@@ -1,11 +1,14 @@
 import { jwtDecode } from "jwt-decode";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { tokenPlayLoad } from "./profile/Profile";
 import { useUser } from "../context/UserContext";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const NavBar = () => {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
+  const searchRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     const token = localStorage.getItem("article-leen-token");
     const decodedUsername = token
@@ -53,7 +56,21 @@ const NavBar = () => {
         </Link>
         {availableOptions()}
       </div>
-      <input type="search" className="search-field" placeholder="Search" />
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          navigate(`search/${searchRef.current?.value}`);
+        }}
+      >
+        <input
+          ref={searchRef}
+          type="search"
+          id="search-field"
+          className="search-field"
+          placeholder="Search"
+          minLength={3}
+        />
+      </form>
     </header>
   );
 };

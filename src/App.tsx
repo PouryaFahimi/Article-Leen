@@ -7,6 +7,7 @@ import FullView from "./components/feed/FullView";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./components/home/Home";
 import LibraryPage from "./pages/LibraryPage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               element={<LibraryPage type="bookmarks" />}
             />
             <Route path="articles/:articleId" element={<FullView />} />
+            <Route path="search/:query" element={<SearchPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
