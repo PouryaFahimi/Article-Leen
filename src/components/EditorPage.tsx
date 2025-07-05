@@ -12,6 +12,7 @@ interface articleSchema {
 
 const EditorPage = () => {
   const editorRef = useRef<SimpleEditorRef>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   let { articleId } = useParams();
   articleId = articleId ? articleId : "";
@@ -49,14 +50,13 @@ const EditorPage = () => {
           return;
         }
         setArticle(data);
+        if (titleRef.current) titleRef.current.value = data.title;
       } catch (err) {
         console.error("Failed to fetch feed:", err);
       }
     };
 
     fetchData();
-
-    setTitle();
   }, []);
 
   function calculateContentLength(jsonBody: articleSchema) {
@@ -69,17 +69,12 @@ const EditorPage = () => {
     return temp.value;
   };
 
-  const setTitle = () => {
-    const temp = document.getElementById("artitle") as HTMLInputElement;
-    temp.value = article ? article.title : "";
-  };
-
   const onCompose = () => {
     const content = editorRef.current?.getHTML()
       ? editorRef.current.getHTML()
       : "";
     const contBody = {
-      title: getTitle(),
+      title: titleRef.current ? titleRef.current.value : "",
       content: content,
     };
     const contentLength = calculateContentLength(contBody);
@@ -117,7 +112,12 @@ const EditorPage = () => {
         <label htmlFor="artitle" className="form-label">
           {titleLabel}
         </label>
-        <input id="artitle" type="text" className="form-control" />
+        <input
+          ref={titleRef}
+          id="artitle"
+          type="text"
+          className="form-control"
+        />
       </div>
       {article && <SimpleEditor ref={editorRef} inContent={article.content} />}
       {!article && <SimpleEditor ref={editorRef} inContent="" />}
