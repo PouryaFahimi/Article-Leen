@@ -7,7 +7,7 @@
   position: absolute;
   // top: 110%;
   right: 0;
-  background: aliceblue;
+  background: var(--secondary-color);
   border: var(--tt-radius-xxs) solid gray;
   border-radius: var(--tt-radius-md);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

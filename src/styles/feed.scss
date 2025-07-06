@@ -8,7 +8,7 @@
 .article-title {
   border-bottom: var(--tt-radius-xxs) solid gray;
   padding: var(--tt-radius-xs);
-  background-color: aliceblue;
+  background-color: var(--secondary-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,7 +40,7 @@
 
   button:hover,
   a:hover {
-    background-color: lightblue;
+    background-color: var(--primary-color);
   }
 }
 

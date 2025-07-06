@@ -10,7 +10,7 @@
 }
 
 .dialog {
-  background: aliceblue;
+  background: var(--secondary-color);
   border: var(--tt-radius-xxs) solid gray;
   border-radius: var(--tt-radius-md);
   min-width: 25vw;

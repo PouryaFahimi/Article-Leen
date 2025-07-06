@@ -11,6 +11,11 @@
   src: url("./assets/fonts/BalenciaLattive.otf") format("opentype");
 }
 
+:root {
+  --primary-color: skyblue;
+  --secondary-color: #dff6ff;
+}
+
 body {
   overflow: auto;
   font-family: "DM Sans", sans-serif;
@@ -20,7 +25,7 @@ body {
   padding: var(--tt-radius-md);
   overflow: auto;
   flex-wrap: nowrap;
-  background-color: lightblue;
+  background-color: var(--primary-color);
 
   a {
     border-radius: var(--tt-radius-md);
@@ -28,7 +33,7 @@ body {
   }
 
   a:hover {
-    background-color: aliceblue;
+    background-color: var(--secondary-color);
   }
 
   h1 {
@@ -47,7 +52,7 @@ body {
   padding: 0 var(--tt-radius-md);
   height: 2.5rem;
   width: 25vw;
-  background-color: aliceblue;
+  background-color: var(--secondary-color);
 }
 
 a,
@@ -97,7 +102,7 @@ button {
   width: 60vw;
   padding: var(--tt-radius-md);
   margin: 10vh 20vw;
-  background-color: aliceblue;
+  background-color: var(--secondary-color);
   border-radius: var(--tt-radius-md);
   overflow: hidden;
 

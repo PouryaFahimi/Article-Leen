@@ -1,7 +1,7 @@
 .card {
   border-radius: var(--tt-radius-md);
   padding: var(--tt-radius-md);
-  background-color: aliceblue;
+  background-color: var(--secondary-color);
 
   h3 {
     font-weight: 700;
@@ -27,7 +27,7 @@
   }
 
   hr {
-    border-top: 0.25rem dotted lightblue;
+    border-top: 0.25rem dotted var(--primary-color);
     margin: var(--tt-radius-lg) 0;
     opacity: 0.5;
   }
