@@ -3,6 +3,7 @@ import { AlertProvider } from "../context/AlertContext";
 import { UserProvider } from "../context/UserContext";
 import React from "react";
 import { Outlet } from "react-router";
+import Footer from "@/components/Footer";
 
 const MainLayout: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const MainLayout: React.FC = () => {
               <Outlet />
             </div>
           </main>
+          <Footer />
         </AlertProvider>
       </UserProvider>
     </div>

@@ -52,11 +52,12 @@ const NavBar = () => {
     <header className="navbar">
       <div className="flex-line">
         <Link className="nav-link" to="/">
-          Home
+          <h1>Article Leen</h1>
         </Link>
         {availableOptions()}
       </div>
       <form
+        className="search-form"
         onSubmit={(event) => {
           event.preventDefault();
           navigate(`search/${searchRef.current?.value}`);

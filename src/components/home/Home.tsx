@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import LetterBox from "./LetterBox";
 import styles from "./Home.module.scss";
 import { MdKey, MdMenuBook, MdModeEdit } from "react-icons/md";
@@ -82,15 +81,25 @@ const Home = () => {
           <strong>Attention</strong>The project is in initial state!
         </h4>
       </div>
-      <div className={styles.card}>
+      {/* <div className={styles.card}>
         <h3>Some useful sections you may miss:</h3>
         <Link to="charts">charts</Link>
-      </div>
+      </div> */}
       <div className={styles.card}>
-        <h3>Features that doesn't work currently:</h3>
+        <h3>Features that will come in the later versions:</h3>
         <ul>
-          <li>Showing article images doesn't work correctly for now.</li>
-          <li>there is no footer yet</li>
+          <li>
+            Upload images in an article and everyone can see it. Showing article
+            images doesn't work correctly for now, because they are not received
+            from the server.
+          </li>
+          <hr />
+          <li>
+            See the other users liked articles! current you can only see your
+            own likes.
+          </li>
+          <hr />
+          <li>Color theme selection!</li>
         </ul>
       </div>
     </>

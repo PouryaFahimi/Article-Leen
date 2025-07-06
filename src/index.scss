@@ -30,6 +30,14 @@ body {
   a:hover {
     background-color: aliceblue;
   }
+
+  h1 {
+    margin: 0;
+    font-family: "Balencia Lattive";
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: inherit;
+  }
 }
 
 .search-field {
@@ -112,6 +120,53 @@ button {
   z-index: 9999;
 }
 
+footer {
+  background-color: midnightblue;
+  color: white;
+  padding: 1rem;
+
+  .top {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  h1 {
+    font-family: "Balencia Lattive";
+    font-size: 3rem;
+  }
+
+  p {
+    margin: 0;
+    svg {
+      font-size: 1.5rem;
+    }
+  }
+
+  div {
+    width: 100%;
+  }
+
+  svg {
+    font-size: 2rem;
+  }
+
+  a svg:hover {
+    color: tomato;
+    transition: 0.3s color ease;
+  }
+
+  .flex-line {
+    justify-content: start;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .navbar {
     flex-wrap: wrap;
@@ -123,7 +178,8 @@ button {
     }
   }
 
-  .search-field {
+  .search-field,
+  .search-form {
     width: 100%;
   }
 
@@ -134,5 +190,11 @@ button {
   .login-form {
     width: 100%;
     margin: 10vh 0;
+  }
+
+  footer {
+    .top {
+      flex-direction: column;
+    }
   }
 }
