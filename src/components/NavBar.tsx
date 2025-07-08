@@ -23,14 +23,9 @@ const NavBar = () => {
   const availableOptions = () => {
     if (!user)
       return (
-        <>
-          <Link className="nav-link" to="login">
-            Login
-          </Link>
-          <Link className="nav-link" to="compose">
-            Compose
-          </Link>
-        </>
+        <Link className="nav-link" to="login">
+          Login
+        </Link>
       );
     else
       return (
@@ -70,6 +65,7 @@ const NavBar = () => {
           className="search-field"
           placeholder="Search"
           minLength={3}
+          required
         />
       </form>
     </header>
