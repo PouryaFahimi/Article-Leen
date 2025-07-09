@@ -8,6 +8,7 @@ import { useUser } from "../context/UserContext";
 interface articleSchema {
   title: string;
   content: string;
+  tags: string[];
 }
 
 const EditorPage = () => {
@@ -17,6 +18,8 @@ const EditorPage = () => {
   let { articleId } = useParams();
   articleId = articleId ? articleId : "";
   const { user } = useUser();
+
+  const tags = ["Art", "Tech", "Sci-Fi", "Music", "Social", "Game"];
 
   const [article, setArticle] = useState<articleSchema>();
   const hasFetched = useRef(false);
@@ -51,6 +54,7 @@ const EditorPage = () => {
         }
         setArticle(data);
         if (titleRef.current) titleRef.current.value = data.title;
+        setTags(data.tags);
       } catch (err) {
         console.error("Failed to fetch feed:", err);
       }
@@ -59,15 +63,28 @@ const EditorPage = () => {
     fetchData();
   }, []);
 
+  const setTags = (tags: string[]) => {
+    if (!tags) return;
+    for (const tag of tags) {
+      const tagItem = document.getElementById(tag) as HTMLInputElement;
+      tagItem.checked = true;
+    }
+  };
+
+  const getTags = () => {
+    const selectedTags = [];
+    const tagItems = document.getElementsByClassName("tag-item");
+    for (const tag of tagItems) {
+      if ((tag as HTMLInputElement).checked)
+        selectedTags.push((tag as HTMLInputElement).value);
+    }
+    return selectedTags;
+  };
+
   function calculateContentLength(jsonBody: articleSchema) {
     const stringifiedBody = JSON.stringify(jsonBody);
     return new TextEncoder().encode(stringifiedBody).length;
   }
-
-  const getTitle = () => {
-    const temp = document.getElementById("artitle") as HTMLInputElement;
-    return temp.value;
-  };
 
   const onCompose = () => {
     const content = editorRef.current?.getHTML()
@@ -76,6 +93,7 @@ const EditorPage = () => {
     const contBody = {
       title: titleRef.current ? titleRef.current.value : "",
       content: content,
+      tags: getTags(),
     };
     const contentLength = calculateContentLength(contBody);
     console.log(contentLength);
@@ -119,6 +137,25 @@ const EditorPage = () => {
           className="form-control"
         />
       </div>
+      <div className="mb-3">
+        <label className="form-label">
+          Select tags related to the content:
+        </label>
+        <div className="tag-list">
+          {tags.map((tag) => (
+            <div>
+              <input
+                id={tag}
+                className="tag-item"
+                type="checkbox"
+                value={tag}
+              />
+              <label htmlFor={tag}>{tag}</label>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {article && <SimpleEditor ref={editorRef} inContent={article.content} />}
       {!article && <SimpleEditor ref={editorRef} inContent="" />}
       <button className="btn btn-primary" onClick={onCompose}>

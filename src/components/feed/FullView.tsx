@@ -149,12 +149,11 @@ const FullView = () => {
       })
       .then((data) => {
         // showAlert(data.message, "info");
+        navigate(-1);
       })
       .catch((error) => {
         console.error("Request failed:", error);
       });
-
-    navigate(-1);
   };
 
   if (loading) return <p>Loading article...</p>;

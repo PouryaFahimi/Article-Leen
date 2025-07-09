@@ -25,6 +25,7 @@ export interface articleSchema {
   updatedAt: string;
   isLiked: boolean;
   isBookmarked: boolean;
+  tags: string[];
 }
 
 interface Props {
@@ -127,12 +128,11 @@ const Article = ({ article }: Props) => {
       })
       .then((data) => {
         // showAlert(data.message, "info");
+        navigate(0);
       })
       .catch((error) => {
         console.error("Request failed:", error);
       });
-
-    navigate(0);
   };
 
   return (

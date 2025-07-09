@@ -62,3 +62,25 @@
   width: 100%;
   overflow: hidden;
 }
+
+.tag-list {
+  display: flex;
+  justify-content: start;
+  gap: var(--tt-radius-md);
+
+  input {
+    display: none;
+  }
+
+  label {
+    border: var(--tt-radius-xxs) solid var(--primary-color);
+    border-radius: var(--tt-radius-md);
+    color: initial;
+    padding: var(--tt-radius-xs) var(--tt-radius-md);
+  }
+
+  input:checked + label {
+    // border-color: var(--secondary-color);
+    background-color: var(--primary-color);
+  }
+}
