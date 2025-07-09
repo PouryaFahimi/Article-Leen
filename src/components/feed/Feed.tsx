@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Article from "./Article";
 import { useUser } from "../../context/UserContext";
 import { articleSchema } from "./Article";
+import { availableTags } from "./Article";
 
 interface Props {
   who?: string;
@@ -11,7 +12,12 @@ interface Props {
 }
 
 const Feed = ({ who, type = "default", query = "", counter }: Props) => {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<articleSchema[]>([]);
+  const [selectedTag, setSelectedTag] = useState("all");
+  const visibleArticles =
+    selectedTag !== "all"
+      ? articles.filter((article) => article.tags.includes(selectedTag))
+      : articles;
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
   const endpoint = who ? `user/${who}` : "";
@@ -61,17 +67,45 @@ const Feed = ({ who, type = "default", query = "", counter }: Props) => {
     fetchData();
   }, [type, query]); // have no effect because of hasFetched
 
+  const handleChange = (event: React.MouseEvent) => {
+    setSelectedTag((event.target as HTMLInputElement).value);
+  };
+
   if (loading) return <p>Loading articles...</p>;
 
   return (
     <div className="simple-editor-content feed-list">
-      {articles.length === 0 ? (
+      <div className="tag-list tiptap ProseMirror">
+        <input
+          id="all"
+          type="radio"
+          name="tag-filter"
+          value="all"
+          checked={selectedTag === "all"}
+          onClick={handleChange}
+        />
+        <label htmlFor="all">All</label>
+        {availableTags.map((tag) => (
+          <>
+            <input
+              id={tag}
+              type="radio"
+              name="tag-filter"
+              value={tag}
+              checked={selectedTag === tag}
+              onClick={handleChange}
+            />
+            <label htmlFor={tag}>{tag}</label>
+          </>
+        ))}
+      </div>
+      {visibleArticles.length === 0 ? (
         <div>
           <h3 className="flex-line">There is no Articles yet.</h3>
           <h3 className="flex-line">Publish some!</h3>
         </div>
       ) : (
-        articles.map((article: articleSchema) => <Article article={article} />)
+        visibleArticles.map((article) => <Article article={article} />)
       )}
     </div>
   );

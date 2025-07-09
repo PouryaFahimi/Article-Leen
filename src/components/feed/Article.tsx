@@ -28,6 +28,16 @@ export interface articleSchema {
   tags: string[];
 }
 
+export const availableTags = [
+  "Art",
+  "Tech",
+  "Sci-Fi",
+  "Music",
+  "Social",
+  "Game",
+  "Sport",
+];
+
 interface Props {
   article: articleSchema;
 }

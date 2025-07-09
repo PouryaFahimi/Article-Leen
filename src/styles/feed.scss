@@ -71,6 +71,7 @@
   display: flex;
   justify-content: start;
   gap: var(--tt-radius-md);
+  overflow: auto;
 
   input {
     display: none;
@@ -80,8 +81,10 @@
     border: var(--tt-radius-xxs) solid var(--primary-color);
     border-radius: var(--tt-radius-md);
     color: initial;
-    padding: var(--tt-radius-xs) var(--tt-radius-md);
+    padding: var(--tt-radius-xs) var(--tt-radius-xl);
     cursor: pointer;
+    font-weight: bold;
+    text-wrap-mode: nowrap;
   }
 
   input:checked + label {
@@ -91,7 +94,8 @@
 
   span {
     border-radius: var(--tt-radius-md);
-    padding: var(--tt-radius-xs) var(--tt-radius-md);
+    padding: var(--tt-radius-xs) var(--tt-radius-xl);
     background-color: var(--primary-color);
+    font-weight: bold;
   }
 }

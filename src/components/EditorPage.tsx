@@ -5,6 +5,7 @@ import {
 } from "./tiptap-templates/simple/simple-editor";
 import { useNavigate, useParams } from "react-router";
 import { useUser } from "../context/UserContext";
+import { availableTags } from "./feed/Article";
 interface articleSchema {
   title: string;
   content: string;
@@ -19,7 +20,7 @@ const EditorPage = () => {
   articleId = articleId ? articleId : "";
   const { user } = useUser();
 
-  const tags = ["Art", "Tech", "Sci-Fi", "Music", "Social", "Game", "Sport"];
+  const tags = availableTags;
 
   const [article, setArticle] = useState<articleSchema>();
   const hasFetched = useRef(false);
