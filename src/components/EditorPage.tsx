@@ -19,7 +19,7 @@ const EditorPage = () => {
   articleId = articleId ? articleId : "";
   const { user } = useUser();
 
-  const tags = ["Art", "Tech", "Sci-Fi", "Music", "Social", "Game"];
+  const tags = ["Art", "Tech", "Sci-Fi", "Music", "Social", "Game", "Sport"];
 
   const [article, setArticle] = useState<articleSchema>();
   const hasFetched = useRef(false);

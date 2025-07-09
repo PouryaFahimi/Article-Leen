@@ -203,6 +203,13 @@ const Article = ({ article }: Props) => {
           </button>
           <p title={absoluteDate}>{relativeDate}</p>
         </div>
+        {!!article.tags.length && (
+          <div className="tag-list">
+            {article.tags.map((tag) => (
+              <span>{tag}</span>
+            ))}
+          </div>
+        )}
         <div
           className="article-content"
           dangerouslySetInnerHTML={{ __html: article.content }}

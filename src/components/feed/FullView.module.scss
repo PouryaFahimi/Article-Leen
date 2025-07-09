@@ -51,13 +51,12 @@
 }
 
 .info {
-  display: flex;
-  align-items: center;
-  gap: var(--tt-radius-md);
+  display: block;
 
   div {
-    display: flex;
     align-items: center;
+    justify-content: start;
+    margin-bottom: var(--tt-radius-md);
   }
 }
 
@@ -68,14 +67,6 @@
 @media screen and (max-width: 480px) {
   .title {
     display: block;
-  }
-
-  .info {
-    display: block;
-
-    div {
-      justify-content: start;
-    }
   }
 
   .icon {

@@ -3,6 +3,10 @@
   border: var(--tt-radius-xxs) solid gray;
   min-height: 11rem;
   overflow: hidden;
+
+  .tag-list {
+    padding: var(--tt-radius-xs);
+  }
 }
 
 .article-title {
@@ -77,10 +81,17 @@
     border-radius: var(--tt-radius-md);
     color: initial;
     padding: var(--tt-radius-xs) var(--tt-radius-md);
+    cursor: pointer;
   }
 
   input:checked + label {
     // border-color: var(--secondary-color);
+    background-color: var(--primary-color);
+  }
+
+  span {
+    border-radius: var(--tt-radius-md);
+    padding: var(--tt-radius-xs) var(--tt-radius-md);
     background-color: var(--primary-color);
   }
 }

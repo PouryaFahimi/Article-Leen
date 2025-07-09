@@ -247,6 +247,13 @@ const FullView = () => {
           <p>Created: {createDate}</p>
         </div>
       </div>
+      {!!article.tags.length && (
+        <div className="tag-list">
+          {article.tags.map((tag) => (
+            <span>{tag}</span>
+          ))}
+        </div>
+      )}
       <hr className={styles.hr} />
       <div
         className="article-content tiptap ProseMirror"
