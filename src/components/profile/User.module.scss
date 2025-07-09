@@ -1,0 +1,32 @@
+.card {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: var(--tt-radius-md);
+  border-radius: var(--tt-radius-md);
+  border: var(--tt-radius-xxs) solid gray;
+  overflow: hidden;
+  padding: var(--tt-radius-md);
+  cursor: pointer;
+
+  svg {
+    font-size: 2rem;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  div {
+    align-items: center;
+  }
+
+  span {
+    color: dimgray;
+    font-size: 0.875rem;
+  }
+}
+
+.card:hover {
+  background-color: var(--secondary-color);
+}

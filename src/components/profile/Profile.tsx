@@ -13,7 +13,7 @@ export interface tokenPlayLoad {
   iat: number;
 }
 
-interface userSchema {
+export interface userSchema {
   _id: string;
   username: string;
   createdAt: string;
