@@ -11,14 +11,23 @@ const NavBar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("article-leen-token");
-    const decodedUsername = token
-      ? jwtDecode<tokenPlayLoad>(token).username
-      : "";
+    if (!token) {
+      setUser(null);
+      return;
+    }
 
-    if (!user && decodedUsername)
-      setUser(decodedUsername ? { username: decodedUsername } : null);
-    else if (!decodedUsername && user) setUser(null);
-  }, [user, setUser]);
+    try {
+      const decodedToken = jwtDecode<tokenPlayLoad>(token);
+      const expirationTime = decodedToken.exp;
+      const currentTime = Date.now() / 1000;
+
+      if (expirationTime > currentTime)
+        setUser({ username: decodedToken.username });
+      else setUser(null); // expired
+    } catch (error) {
+      console.error("Error decoding token:", error);
+    }
+  }, [setUser]);
 
   const availableOptions = () => {
     if (!user)

@@ -22,8 +22,8 @@ const Home = () => {
 
   return (
     <>
-      <h1 className="flex-line">Welcome To</h1>
-      {showBrand()}
+      <h1 className="flex-line mt-3">Welcome To</h1>
+      <div className="my-3">{showBrand()}</div>
       <div className={styles.card}>
         <h3>A lovely place to:</h3>
         <ul>

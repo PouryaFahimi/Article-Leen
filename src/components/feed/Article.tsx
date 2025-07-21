@@ -147,7 +147,7 @@ const Article = ({ article }: Props) => {
 
   return (
     <div className="tiptap ProseMirror">
-      <div key={article._id} className="article-card">
+      <div className="article-card">
         <div className="article-title">
           <h2>{article.title}</h2>
           <div className="flex-line">

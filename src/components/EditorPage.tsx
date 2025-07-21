@@ -6,6 +6,7 @@ import {
 import { useNavigate, useParams } from "react-router";
 import { useUser } from "../context/UserContext";
 import { availableTags } from "./feed/Article";
+import { useAlert } from "../context/AlertContext";
 interface articleSchema {
   title: string;
   content: string;
@@ -19,6 +20,7 @@ const EditorPage = () => {
   let { articleId } = useParams();
   articleId = articleId ? articleId : "";
   const { user } = useUser();
+  const { showAlert } = useAlert();
 
   const tags = availableTags;
 
@@ -88,11 +90,16 @@ const EditorPage = () => {
   }
 
   const onCompose = () => {
+    const title = titleRef.current?.value.trim();
+    if (!title) {
+      showAlert("Title cannot be empty!", "error");
+      return;
+    }
     const content = editorRef.current?.getHTML()
       ? editorRef.current.getHTML()
       : "";
     const contBody = {
-      title: titleRef.current ? titleRef.current.value : "",
+      title: title,
       content: content,
       tags: getTags(),
     };
@@ -144,7 +151,7 @@ const EditorPage = () => {
         </label>
         <div className="tag-list">
           {tags.map((tag) => (
-            <div>
+            <div key={tag}>
               <input
                 id={tag}
                 className="tag-item"

@@ -21,7 +21,6 @@ const Feed = ({ who, type = "default", query = "", counter }: Props) => {
   const [loading, setLoading] = useState(true);
   const hasFetched = useRef(false);
   const endpoint = who ? `user/${who}` : "";
-  const { user } = useUser();
 
   const requestOptions = {
     headers: {
@@ -67,8 +66,8 @@ const Feed = ({ who, type = "default", query = "", counter }: Props) => {
     fetchData();
   }, [type, query]); // have no effect because of hasFetched
 
-  const handleChange = (event: React.MouseEvent) => {
-    setSelectedTag((event.target as HTMLInputElement).value);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedTag(event.target.value);
   };
 
   if (loading) return <p>Loading articles...</p>;
@@ -82,7 +81,7 @@ const Feed = ({ who, type = "default", query = "", counter }: Props) => {
           name="tag-filter"
           value="all"
           checked={selectedTag === "all"}
-          onClick={handleChange}
+          onChange={handleChange}
         />
         <label htmlFor="all">All</label>
         {availableTags.map((tag) => (
@@ -93,7 +92,7 @@ const Feed = ({ who, type = "default", query = "", counter }: Props) => {
               name="tag-filter"
               value={tag}
               checked={selectedTag === tag}
-              onClick={handleChange}
+              onChange={handleChange}
             />
             <label htmlFor={tag}>{tag}</label>
           </>
@@ -105,7 +104,9 @@ const Feed = ({ who, type = "default", query = "", counter }: Props) => {
           <h3 className="flex-line">Publish some!</h3>
         </div>
       ) : (
-        visibleArticles.map((article) => <Article article={article} />)
+        visibleArticles.map((article) => (
+          <Article key={article._id} article={article} />
+        ))
       )}
     </div>
   );

@@ -16,10 +16,13 @@ const Footer = () => {
         <div>
           <h4>Contact me</h4>
           <div className="flex-line">
-            <a href="https://github.com/PouryaFahimi">
+            <a target="_blank" href="https://github.com/PouryaFahimi">
               <IoLogoGithub />
             </a>
-            <a href="https://www.linkedin.com/in/pourya-fahimi/">
+            <a
+              target="_blank"
+              href="https://www.linkedin.com/in/pourya-fahimi/"
+            >
               <IoLogoLinkedin />
             </a>
           </div>
