@@ -95,7 +95,7 @@ const Home = () => {
           </li>
           <hr />
           <li>
-            See the other users liked articles! current you can only see your
+            See the other users liked articles! currently you can only see your
             own likes.
           </li>
           <hr />
