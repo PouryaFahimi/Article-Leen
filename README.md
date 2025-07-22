@@ -27,7 +27,7 @@ To design the project as good as possible, StyleSheets, CSS modules and a little
 
 ### Profile Pages
 
-<div>
+<div align="center">
   <div style="display: flex; justify-content: center; gap: 1rem">
     <img src="docs/screenshots/profile1.png" alt="profile1" width="320" />
     <img src="docs/screenshots/profile2.png" alt="profile2" width="320" />
