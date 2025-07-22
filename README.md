@@ -13,6 +13,28 @@ To design the project as good as possible, StyleSheets, CSS modules and a little
 - User authentication and JWT token support
 - Authors personal profile
 - Tag filtering (may be put on server-side in next versions)
+- Responsive design
+
+## Screenshots
+
+### Feed Page
+
+<div align="center">
+  <img src="docs/screenshots/feed.png" alt="feed page" width="400" />
+</div>
+
+### Profile Pages
+
+<div style="display: flex; justify-content: center; gap: 1rem">
+  <img src="docs/screenshots/profile1.png" alt="profile1" width="320" />
+  <img src="docs/screenshots/profile2.png" alt="profile2" width="320" />
+</div>
+
+### Article Full View
+
+<div align="center">
+  <img src="docs/screenshots/full-view.png" alt="full-view" width="400" />
+</div>
 
 ## Installation
 
