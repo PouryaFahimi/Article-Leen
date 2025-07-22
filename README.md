@@ -23,12 +23,18 @@ To design the project as good as possible, StyleSheets, CSS modules and a little
   <img src="docs/screenshots/feed.png" alt="feed page" width="400" />
 </div>
 
+---
+
 ### Profile Pages
 
-<div style="display: flex; justify-content: center; gap: 1rem">
-  <img src="docs/screenshots/profile1.png" alt="profile1" width="320" />
-  <img src="docs/screenshots/profile2.png" alt="profile2" width="320" />
+<div>
+  <div style="display: flex; justify-content: center; gap: 1rem">
+    <img src="docs/screenshots/profile1.png" alt="profile1" width="320" />
+    <img src="docs/screenshots/profile2.png" alt="profile2" width="320" />
+  </div>
 </div>
+
+---
 
 ### Article Full View
 
