@@ -110,7 +110,7 @@ const Profile = () => {
       </div>
       <div className="flex-rowed">
         <h2>Published Articles:</h2>
-        <Feed who={username} counter={setArticleNum} />
+        <Feed key={username} who={username} counter={setArticleNum} />
       </div>
     </>
   );
