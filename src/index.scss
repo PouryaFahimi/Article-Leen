@@ -21,11 +21,19 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+.width-limit {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+header {
+  background-color: var(--primary-color);
+}
+
 .navbar {
   padding: var(--tt-radius-md);
   overflow: auto;
   flex-wrap: nowrap;
-  background-color: var(--primary-color);
 
   a {
     border-radius: var(--tt-radius-md);
@@ -51,7 +59,9 @@ body {
   background: none;
   padding: 0 var(--tt-radius-md);
   height: 2.5rem;
-  width: 25vw;
+  width: 20vw;
+  min-width: 10rem;
+  max-width: 25rem;
   background-color: var(--secondary-color);
   outline: none;
 }
@@ -75,7 +85,7 @@ button {
 }
 
 .outlet {
-  padding: var(--tt-radius-xl);
+  padding: var(--tt-radius-xl) var(--tt-radius-md);
   min-height: 100vh;
 }
 
@@ -101,9 +111,10 @@ button {
 }
 
 .login-form {
-  width: 60vw;
+  width: 50vw;
+  max-width: 50rem;
   padding: var(--tt-radius-md);
-  margin: 10vh 20vw;
+  margin: 10vh auto;
   background-color: var(--secondary-color);
   border-radius: var(--tt-radius-md);
   overflow: hidden;
@@ -174,6 +185,10 @@ footer {
   }
 }
 
+.footer {
+  padding: var(--tt-radius-md);
+}
+
 @media screen and (max-width: 480px) {
   .navbar {
     flex-wrap: wrap;
@@ -188,10 +203,7 @@ footer {
   .search-field,
   .search-form {
     width: 100%;
-  }
-
-  .outlet {
-    padding: var(--tt-radius-sm);
+    max-width: none;
   }
 
   .login-form {

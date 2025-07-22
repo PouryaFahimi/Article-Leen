@@ -12,7 +12,7 @@ const MainLayout: React.FC = () => {
         <AlertProvider>
           <NavBar />
           <main>
-            <div className="outlet flex-rowed">
+            <div className="outlet flex-rowed width-limit">
               <Outlet />
             </div>
           </main>

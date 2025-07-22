@@ -53,30 +53,34 @@ const NavBar = () => {
   };
 
   return (
-    <header className="navbar">
-      <div className="flex-line">
-        <Link className="nav-link" to="/">
-          <h1>Article Leen</h1>
-        </Link>
-        {availableOptions()}
+    <header>
+      <div className="navbar width-limit">
+        <div className="flex-line">
+          <Link className="nav-link" to="/">
+            <h1>Article Leen</h1>
+          </Link>
+          {availableOptions()}
+        </div>
+        {user && (
+          <form
+            className="search-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              navigate(`search/${searchRef.current?.value}`);
+            }}
+          >
+            <input
+              ref={searchRef}
+              type="search"
+              id="search-field"
+              className="search-field"
+              placeholder="Search"
+              minLength={3}
+              required
+            />
+          </form>
+        )}
       </div>
-      <form
-        className="search-form"
-        onSubmit={(event) => {
-          event.preventDefault();
-          navigate(`search/${searchRef.current?.value}`);
-        }}
-      >
-        <input
-          ref={searchRef}
-          type="search"
-          id="search-field"
-          className="search-field"
-          placeholder="Search"
-          minLength={3}
-          required
-        />
-      </form>
     </header>
   );
 };

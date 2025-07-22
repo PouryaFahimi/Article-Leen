@@ -22,7 +22,7 @@ const SearchPage = () => {
             type="radio"
             name="mode-filter"
             checked={mode === "article"}
-            onClick={() => setMode("article")}
+            onChange={() => setMode("article")}
           />
           <label htmlFor="article-mode">Articles</label>
           <input
@@ -30,7 +30,7 @@ const SearchPage = () => {
             type="radio"
             name="mode-filter"
             checked={mode === "user"}
-            onClick={() => setMode("user")}
+            onChange={() => setMode("user")}
           />
           <label htmlFor="user-mode">Users</label>
         </div>

@@ -27,7 +27,8 @@
 }
 
 .profStats {
-  min-width: 25vw;
+  width: 25vw;
+  max-width: 40rem;
 }
 
 @media screen and (max-width: 480px) {
@@ -36,6 +37,7 @@
   }
 
   .prof-stats {
+    width: auto;
     margin-top: var(--tt-radius-xl);
   }
 }
